@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 
+/* prints the value of EOF */
 int main(int argc, char *argv[]) {
   int c;
 

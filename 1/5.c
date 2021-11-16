@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 /* Prints a conversion table from fahrenheit to celsius in reverse order */
-
 int main(int argc, char *argv[]) {
   int fahr;
 

@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 /* Prints a conversion table from celsius to fahrenheit */
-
 int main(int argc, char *argv[]) {
   float celsius, fahr;
   int lower, upper, step;
