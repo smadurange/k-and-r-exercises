@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
 
   while ((c = getchar()) != EOF) {
     if (c == ' ' || c == '\t')
-      printf("\n");
+      putchar('\n');
     else
       putchar(c);
   }
