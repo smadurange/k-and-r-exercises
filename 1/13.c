@@ -35,13 +35,10 @@ int main(int argc, char *argv[]) {
     size = data[i];
     if (size == 0)
       break;
-    
+
     printf("%3d: ", i + 1);
-
-    for (j = 0; j < size; j++) {
-        putchar('x');
-    }
-
+    for (j = 0; j < size; j++)
+      putchar('x');
     putchar('\n');
   }
 
