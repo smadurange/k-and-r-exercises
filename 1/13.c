@@ -4,40 +4,36 @@
 
 /* prints a histogram of lengths of words in the input */
 int main(int argc, char *argv[]) {
-  int i, j, p, c, wc, cc, size;
-  int data[MAXWRD];
+  int i, j, prev, curr, wordc, charc;
+  int stats[MAXWRD];
 
-  p = '0';
-  cc = wc = 0;
+  prev = '0';
+  charc = wordc = 0;
 
   for (i = 0; i < MAXWRD; i++)
-    data[i] = 0;
+    stats[i] = 0;
 
-  while ((c = getchar()) != EOF) {
-    if (wc >= MAXWRD) {
+  while ((curr = getchar()) != EOF) {
+    if (wordc >= MAXWRD) {
       printf("Max word count %d exceeded\n", MAXWRD);
       return 1;
     }
 
-    if (c == ' ' || c == '\t' || c == '\n') {
-      if (p != ' ' && p != '\t' && p != '\n') {
-        data[wc++] = cc;
-        cc = 0;
+    if (curr == ' ' || curr == '\t' || curr == '\n') {
+      if (prev != ' ' && prev != '\t' && prev != '\n') {
+        stats[wordc++] = charc;
+        charc = 0;
       }
     } else {
-      cc++;
+      charc++;
     }
 
-    p = c;
+    prev = curr;
   }
 
-  for (i = 0; i < MAXWRD; i++) {
-    size = data[i];
-    if (size == 0)
-      break;
-
+  for (i = 0;(charc = stats[i]) > 0 && i < MAXWRD; i++) {
     printf("%3d: ", i + 1);
-    for (j = 0; j < size; j++)
+    for (j = 0; j < charc; j++)
       putchar('x');
     putchar('\n');
   }
