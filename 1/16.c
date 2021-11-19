@@ -5,7 +5,7 @@
 int mgetline(char s[], int lim);
 void copy(char to[], char from[]);
 
-/* prints the longest input line */
+/* prints the longest input line and the input length */
 int main(int argc, char *argv[]) {
   int len, max;
   char s[MAXLINE], smax[MAXLINE];
