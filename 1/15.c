@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-/* converts fahrenhite to celsius */
 int ftoc(int fahr);
 
+/* converts fahrenhite to celsius using a helper function */
 int main(int argc, char *argv[]) {
   int fahr, celsius;
   int lower, upper, step;
