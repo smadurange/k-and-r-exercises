@@ -37,7 +37,7 @@ int mgetline(char s[], int lim) {
 
   if (c == '\n')
     s[i++] = c;
-
+    
   s[i] = '\0';
 
   return i;
@@ -45,6 +45,7 @@ int mgetline(char s[], int lim) {
 
 void copy(char to[], char from[]) {
   int i;
+
   for (i = 0; (to[i] = from[i]) != '\0'; i++)
     ;
 }
