@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define MAXLEN 5
+#define MAXLEN 1000
 
 int cgetline(char s[], int max);
 void reverse(char s[], int size);
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
   }
 
   if (size == -1) {
-    printf("exceeded max input size: %d\n", MAXLEN);
+    printf("exceeded max input size: %d\n", MAXLEN - 1);
     return 1;
   }
 
@@ -30,15 +30,22 @@ int cgetline(char s[], int max) {
     s[i] = c;
   s[i] = '\0';
 
-  return i == max && c != '\n' && c != EOF ? -1 : i;
+  if (i == max - 1 && c != '\n' && c != EOF) {
+    c = getchar();
+    if (c != '\n' && c != EOF)
+      return -1;
+  }
+
+  return i;
 }
 
 void reverse(char s[], int size) {
-  int i, j, lim;
+  int i, j, upper;
 
-  lim = size / 2;
+  upper = size / 2;
 
-  for (i = 0, j = size - i - 1; i < lim; i++) {
+  for (i = 0; i < upper; i++) {
+    j = size - i - 1;
     s[i] = s[i] ^ s[j];
     s[j] = s[i] ^ s[j];
     s[i] = s[i] ^ s[j];
