@@ -2,7 +2,7 @@
 
 #define MAXLEN 1000
 
-int cgetline(char s[], int max);
+int mygetline(char s[], int max);
 void reverse(char s[], int size);
 
 /* reverses input string */
@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
   int size;
   char s[MAXLEN];
 
-  while ((size = cgetline(s, MAXLEN)) > 0) {
+  while ((size = mygetline(s, MAXLEN)) > 0) {
     reverse(s, size);
     printf("%s\n", s);
   }
@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int cgetline(char s[], int max) {
+int mygetline(char s[], int max) {
   int c, i;
 
   for (i = 0; i < max - 1 && (c = getchar()) != EOF && c != '\n'; i++)
