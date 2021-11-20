@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
 int getlineraw(char s[], int size) {
   int c, i;
 
-  for (i = 0; i < size - 1 && (c = getchar()) != EOF && c != '\n'; i++)
+  for (i = 0; i < size && (c = getchar()) != EOF && c != '\n'; i++)
     s[i] = c;
 
   return c != '\n' && c != EOF ? -1 : i;
