@@ -30,5 +30,5 @@ int cgetline(char s[], int max) {
     s[i] = c;
   s[i] = '\0';
 
-  return c != '\n' && c != EOF ? -1 : i;
+  return c != '\n' && c != EOF ? -1 : i - 1;
 }
