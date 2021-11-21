@@ -8,14 +8,15 @@ void detab(char to[], char from[], int n);
 
 /* detabs input by replacing tabs with specified number of blanks */
 int main(int argc, char *argv[]) {
+  int tabw;
   char s[MAXLEN], dtab[MAXLEN];
-  int tabw = atoi(argv[1]);
+
+  tabw = atoi(argv[1]);
 
   printf("Enter text to detab and press ctrl+d\n");
-
+  
   getstr(s);
   detab(dtab, s, tabw);
-
   printf("\nTab width: %d\n", tabw);
   printf("%s\n", dtab);
 
