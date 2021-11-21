@@ -38,11 +38,9 @@ void fold(char to[], char from[], int n) {
     if (len == 0 && blank)
       continue;
 
-    if (len >= n) {
-      if (!blank) {
-        to[j++] = '\n';
-        len = 0;
-      }
+    if (len >= n && !blank) {
+      to[j++] = '\n';
+      len = 0;
     }
 
     to[j++] = c;
