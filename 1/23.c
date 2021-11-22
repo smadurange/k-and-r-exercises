@@ -3,22 +3,26 @@
 #define NONE 0
 #define SINGLLC 1
 #define MULTILC 2
+
 #define MAXLEN 1000
 
 /* removes comments from a c program */
 int main(int argc, char *argv[]) {
-  int prev, curr, i, comment;
+  int prev, curr, i, comment, inquote;
   char s[MAXLEN];
 
-  i = prev = 0;
+  inquote = i = prev = 0;
   comment = NONE;
 
   while (i < MAXLEN - 1 && (curr = getchar()) != EOF) {
     if (!comment) {
-      if (curr == '/' && prev == '/') {
+      if (curr == '"' && prev != '\\') {
+        s[i++] = curr;
+        inquote = !inquote;
+      } else if (!inquote && curr == '/' && prev == '/') {
         comment = SINGLLC;
         i--;
-      } else if (curr == '*' && prev == '/') {
+      } else if (!inquote && curr == '*' && prev == '/') {
         comment = MULTILC;
         i--;
       } else {
