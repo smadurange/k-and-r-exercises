@@ -22,10 +22,18 @@ int main(int argc, char *argv[]) {
         comment = MULTILC;
         i--;
       } else {
+        // try not to add redundant line breaks.
+        if (i > 0 && s[i - 1] == '\n' && curr == '\n') {
+          continue;
+        }
         s[i++] = curr;
       }
-    } else if ((comment == SINGLLC && curr == '\n') ||
-               (comment == MULTILC && curr == '/' && prev == '*')) {
+    } else if (comment == SINGLLC && curr == '\n') {
+      comment = NONE;
+      // try not to add redundant line breaks.
+      if (s[i - 1] != '\n')
+        s[i] = '\n';
+    } else if (comment == MULTILC && curr == '/' && prev == '*') {
       comment = NONE;
     }
 
@@ -34,7 +42,7 @@ int main(int argc, char *argv[]) {
 
   s[i] = 0;
 
-  printf("c code: \n");
+  printf("Code without comments: \n");
   printf("%s\n", s);
 
   return 0;
