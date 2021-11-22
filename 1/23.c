@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
       comment = NONE;
       // try not to add redundant line breaks.
       if (s[i - 1] != '\n')
-        s[i] = '\n';
+        s[i++] = '\n';
     } else if (comment == MULTILC && curr == '/' && prev == '*') {
       comment = NONE;
     }
