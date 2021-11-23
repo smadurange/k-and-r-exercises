@@ -18,25 +18,16 @@ int main(int argc, char *argv[]) {
   for (i = 0; i < MAXLEN - 1 && (c = getchar()) != EOF; i++) {
     if (!comment && !quote && (c == '/' || c == '*') && p == '/') {
       comment = c == '/' ? INLINE : MULTILINE;
-      continue;
-    }
-    if (!comment && !quote && c == '"') {
+    } else if (!comment && !quote && c == '"') {
       quote = TRUE;
-      continue;
-    }
-    if (comment == INLINE && c == '\n') {
+    } else if (comment == INLINE && c == '\n') {
       comment = FALSE;
-      continue;
-    }
-    if (comment == MULTILINE && c == '/' && p == '*') {
+    } else if (comment == MULTILINE && c == '/' && p == '*') {
       comment = FALSE;
-      continue;
     }
     if (!comment && quote && c == '"' && p != '\\') {
       quote = FALSE;
-      continue;
-    }
-    if (!comment && !quote) {
+    } else if (!comment && !quote) {
       if (c == '{')
         braces++;
       else if (c == '(')
@@ -50,6 +41,8 @@ int main(int argc, char *argv[]) {
       else if (c == ']')
         bracks--;
     }
+
+    p = c;
   }
 
   if (braces != 0)
@@ -60,7 +53,7 @@ int main(int argc, char *argv[]) {
     printf("err: input contains %d open brackets\n", bracks);
 
   if (braces == 0 && parens == 0 && bracks == 0)
-    printf("all braces, parenthese and brackets are balanced!\n");
+    printf("no basic syntax errors!\n");
 
   return 0;
 }
