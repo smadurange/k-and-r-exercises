@@ -16,16 +16,15 @@ int main(int argc, char *argv[]) {
   parens = bracks = braces = 0;
 
   for (i = 0; i < MAXLEN - 1 && (c = getchar()) != EOF; i++) {
-    if (!comment && !quote && (c == '/' || c == '*') && p == '/') {
-      comment = c == '/' ? INLINE : MULTILINE;
-    } else if (!comment && !quote && c == '"') {
-      quote = TRUE;
-    } else if (comment == INLINE && c == '\n') {
+    if (!comment && !quote) {
+      if ((c == '/' || c == '*') && p == '/')
+        comment = c == '/' ? INLINE : MULTILINE;
+      else if (c == '"')
+        quote = TRUE;
+    } else if ((comment == INLINE && c == '\n') ||
+               (comment == MULTILINE && c == '/' && p == '*')) {
       comment = FALSE;
-    } else if (comment == MULTILINE && c == '/' && p == '*') {
-      comment = FALSE;
-    }
-    if (!comment && quote && c == '"' && p != '\\') {
+    } else if (!comment && quote && c == '"' && p != '\\') {
       quote = FALSE;
     } else if (!comment && !quote) {
       if (c == '{')
