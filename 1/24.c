@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-#define MAXLEN 1000
-#define TRUE 1
 #define FALSE 0
+#define TRUE 1
 #define INLINE 2
 #define MULTILINE 3
+#define MAXLEN 1000
 
 /* checks c program for unbalanced parentheses, brackets and braces */
 int main(int argc, char *argv[]) {
