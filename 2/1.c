@@ -3,7 +3,7 @@
 void printu(int size);
 void prints(int size);
 
-/* prints the max ranges of char, short, int and long */
+/* prints the range of values for char, short, int and long */
 int main(int argc, char *argv[]) {
   printf("char: ");
   prints(sizeof(char));
