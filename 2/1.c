@@ -33,11 +33,11 @@ int main(int argc, char *argv[]) {
 }
 
 void printu(int size) {
-  int bits = 8 * size;
+  int bits = size << 3;
   printf("0 to %ld\n", (1L << (bits - 1)) + ((1L << (bits - 1)) - 1));
 }
 
 void prints(int size) {
-  int bits = 8 * size;
+  int bits = size << 3;
   printf("%ld to %ld\n", -(1L << (bits - 1)), (1L << (bits - 1)) - 1);
 }
