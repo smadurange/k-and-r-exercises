@@ -33,11 +33,11 @@ int htoi(char s[]) {
     if ((i == 0 && c == '0') || (i == 1 && (c == 'x' || c == 'X')))
       continue;
     else if (c >= '0' && c <= '9')
-      n = 16 * n + (c - '0');
+      n = (n << 4) + (c - '0');
     else if (c >= 'A' && c <= 'F')
-      n = 16 * n + (c - 'A' + 10);
+      n = (n << 4) + (c - 'A' + 10);
     else if (c >= 'a' && c <= 'f')
-      n = 16 * n + (c - 'a' + 10);
+      n = (n << 4) + (c - 'a' + 10);
     else
       return -1;
   }
