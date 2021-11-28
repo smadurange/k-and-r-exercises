@@ -9,12 +9,12 @@ int main(int argc, char *argv[]) {
   int i, c;
   char s1[MAXLEN], s2[MAXLEN];
 
-  printf("input first string\n");
+  printf("enter first string\n");
   for (i = 0; i < MAXLEN - 1 && (c = getchar()) != '\n' && c != EOF; i++)
     s1[i] = c;
   s1[i] = 0;
 
-  printf("input second string\n");
+  printf("enter second string\n");
   for (i = 0; i < MAXLEN - 1 && (c = getchar()) != '\n' && c != EOF; i++)
     s2[i] = c;
   s2[i] = 0;
