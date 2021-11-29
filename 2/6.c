@@ -28,7 +28,7 @@ unsigned setbits(unsigned x, int p, int n, unsigned y) {
   // create mask for x
   xUnset = (~0 << p) | ~(~0 << (p - n));
 
-  // mask out n bits in x from p:
+  // mask out n bits in x from pth position:
   xPrime = x & xUnset;
 
   return xPrime | yLOA;
