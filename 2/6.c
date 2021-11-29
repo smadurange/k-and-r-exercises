@@ -19,16 +19,16 @@ int main(int argc, char *argv[]) {
 unsigned setbits(unsigned x, int p, int n, unsigned y) {
   unsigned yLO, yLOA, xUnset, xPrime;
 
-  // extract LO n bits from y
+  // extract n LO bits from y
   yLO = y & ~(~0 << n);
 
-  // align extracted LO bits of y to position p:
+  // align extracted bits to p:
   yLOA = yLO << (p + 1 - n);
 
-  // create mask with n bits from position p unset:
+  // mask with n bits from p unset:
   xUnset = (~0 << p) | ~(~0 << (p - n));
 
-  // mask out n bits from x starting at position p:
+  // mask out n bits in x from p:
   xPrime = x & xUnset;
 
   return xPrime | yLOA;
