@@ -25,7 +25,7 @@ unsigned setbits(unsigned x, int p, int n, unsigned y) {
   // align extracted bits to p:
   yLOA = yLO << (p + 1 - n);
 
-  // create mask for x
+  // maks to unset n bits starting at p:
   xUnset = (~0 << p) | ~(~0 << (p - n));
 
   // mask out n bits in x from pth position:
