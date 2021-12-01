@@ -1,21 +1,6 @@
 #include <stdio.h>
 
-unsigned setbits(unsigned x, int p, int n, unsigned y);
-
-int main(int argc, char *argv[]) {
-  int p, n;
-  unsigned x, y;
-
-  p = 5;
-  n = 3;
-  x = 0;
-  y = 7;
-
-  printf("New bit field: %x\n", setbits(x, p, n, y));
-
-  return 0;
-}
-
+/* sets the n bits of x starting at p to rightmost n bits of y  */
 unsigned setbits(unsigned x, int p, int n, unsigned y) {
   unsigned yLO, yLOA, xUnset, xPrime;
 
