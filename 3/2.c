@@ -8,7 +8,7 @@
 /* converts new line and tab chars to visible chars */
 void escape(char s[], char t[]);
 
-/* converts escapes sequences to chars */
+/* converts escape sequences to chars */
 void unescape(char s[], char t[]);
 
 int main(int argc, char *argv[]) {
