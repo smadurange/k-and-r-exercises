@@ -5,7 +5,7 @@
 #define UNESCAPE 1
 #define MAXLEN 1000
 
-/* convert new line and tab chars to visible chars */
+/* converts new line and tab chars to visible chars */
 void escape(char s[], char t[]);
 
 /* converts escapes sequences to chars */
@@ -29,17 +29,12 @@ int main(int argc, char *argv[]) {
     t[i] = c;
   t[i] = 0;
 
-  if (cmd == ESCAPE) {
+  if (cmd == ESCAPE)
     escape(s, t);
-    printf("Escaped output:\n");
-    printf("%s\n", s);
-  } else if (cmd == UNESCAPE) {
+  else
     unescape(s, t);
-    printf("Unescaped output:\n");
-    printf("%s\n", s);
-  } else {
-    return 1;
-  }
+  
+  printf("Output:\n%s\n", s);
 
   return 0;
 }
