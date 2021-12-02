@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     escape(s, t);
   else
     unescape(s, t);
-  
+
   printf("Output:\n%s\n", s);
 
   return 0;
@@ -69,10 +69,10 @@ void unescape(char s[], char t[]) {
     if (j > 0 && s[j - 1] == '\\') {
       switch (c) {
       case 'n':
-        s[j - 1] = '\n';
+        s[j-1] = '\n';
         break;
       case 't':
-        s[j - 1] = '\t';
+        s[j-1] = '\t';
         break;
       default:
         s[j++] = c;
