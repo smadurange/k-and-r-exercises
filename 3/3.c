@@ -24,9 +24,9 @@ void expand(char s1[], char s2[]) {
   int i, j, c;
 
   for (i = 0, j = 0; j < MAXLEN - 1 && (c = s1[i]) != 0; i++) {
-    if (c == '-' && i > 0 && isalnum(s1[i-1]) && isalnum(s1[i+1])) {
-      c = s1[i-1] + 1;
-      while (c < s1[i+1])
+    if (c == '-' && i > 0 && isalnum(s1[i - 1]) && isalnum(s1[i + 1])) {
+      c = s1[i - 1] + 1;
+      while (c < s1[i + 1])
         s2[j++] = c++;
       continue;
     }
