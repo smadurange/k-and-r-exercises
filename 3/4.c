@@ -5,6 +5,10 @@
 
 #define MAXLEN 50
 
+// Explanation of the error:
+// In itoa, for largest negative number, n = -n overflows
+// resulting in n = INT_MIN (wraps around) causing a god awful mess.
+
 void itoa(int n, char s[]);
 void reverse(char s[]);
 
