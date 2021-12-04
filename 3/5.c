@@ -4,7 +4,7 @@
 
 #define MAXLEN 100
 
-/* converts n to string in base b representation */
+/* converts n to string in base b */
 void itob(int n, char s[], int b);
 
 int main(int argc, char *argv[]) {
