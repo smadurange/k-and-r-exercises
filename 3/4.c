@@ -19,11 +19,12 @@ int main(int argc, char *argv[]) {
 }
 
 void itoa(int n, char s[]) {
-  int i;
+  int i, sign;
 
   i = 0;
+  sign = n < 0;
 
-  if (n >= 0) {
+  if (!sign) {
     do {
       s[i++] = n % 10 + '0';
     } while ((n /= 10) > 0);
@@ -36,7 +37,7 @@ void itoa(int n, char s[]) {
     } while ((n /= 10) <= -1);
   }
 
-  if (n < 0)
+  if (sign)
     s[i++] = '-';
   s[i] = 0;
   

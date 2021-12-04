@@ -40,11 +40,12 @@ void reverse(char s[]) {
 }
 
 void itoa(int n, char s[], int w) {
-  int i;
+  int i, sign;
 
   i = 0;
+  sign = n < 0;
 
-  if (n >= 0) {
+  if (!sign) {
     do {
       s[i++] = n % 10 + '0';
     } while ((n /= 10) > 0);
@@ -54,7 +55,7 @@ void itoa(int n, char s[], int w) {
     } while ((n /= 10) <= -1);
   }
 
-  if (n < 0)
+  if (sign)
     s[i++] = '-';
 
   while (i < MAXLEN - 1 && i < w)
