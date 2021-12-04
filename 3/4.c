@@ -29,7 +29,7 @@ void itoa(int n, char s[]) {
     } while ((n /= 10) > 0);
   }
   else {
-    // avoid integer overflow of n = -n of min n in original impl
+    // avoid integer overflow of n = -n for min integer in original impl
     // by handling negtive values separately.
     do {
       s[i++] = -(n % 10) + '0';
