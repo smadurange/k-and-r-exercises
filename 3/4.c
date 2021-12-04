@@ -27,7 +27,7 @@ void itoa(int n, char s[]) {
 
   i = 0;
 
-  if (n >= 0) {
+  if (n != INT_MIN) {
     do {
       s[i++] = n % 10 + '0';
     } while ((n /= 10) > 0);
