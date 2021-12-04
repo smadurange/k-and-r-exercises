@@ -40,18 +40,26 @@ void reverse(char s[]) {
 }
 
 void itob(int n, char s[], int b) {
-  int i, sign;
+  int i, sign, mod;
 
   i = 0;
   sign = n < 0;
 
   if (n >= 0) {
     do {
-      s[i++] = (n % b) + '0';
+      mod = (n % b);
+      if (mod < 10)
+        s[i++] = mod + '0';
+      else
+        s[i++] = mod - 10 + 'A';
     } while ((n /= b) > 0);
   } else {
     do {
-      s[i++] = -(n % b) + '0';
+      mod = -(n % b);
+      if (mod < 10)
+        s[i++] = mod + '0';
+      else
+        s[i++] = mod - 10 + 'A';
     } while ((n /= b) <= -1);
   }
 
