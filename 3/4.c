@@ -4,14 +4,10 @@
 
 #define MAXLEN 50
 
-// xplanation of the error:
-// In itoa, for largest negative number, n = -n overflows
-// resulting in n = INT_MIN (wraps around) causing a god awful mess.
-
 void itoa(int n, char s[]);
 void reverse(char s[]);
 
-/* Fixes itoa function to handle the largest negative number */
+/* fixes itoa function to handle the largest negative number */
 int main(int argc, char *argv[]) {
   char s[MAXLEN];
 
@@ -27,12 +23,14 @@ void itoa(int n, char s[]) {
 
   i = 0;
 
-  if (n != INT_MIN) {
+  if (n >= 0) {
     do {
       s[i++] = n % 10 + '0';
     } while ((n /= 10) > 0);
   }
   else {
+    // avoid integer overflow of n = -n of min n in original impl
+    // by handling negtive values separately.
     do {
       s[i++] = -(n % 10) + '0';
     } while ((n /= 10) <= -1);
