@@ -49,7 +49,10 @@ double atof(char s[]) {
 
   exp_sign = s[i] == '-' ? -1 : 1;
 
-  for (i++, exp = 0; isdigit(s[i]); i++)
+  if (s[i] == '-' || s[i] == '+')
+    i++;
+
+  for (exp = 0; isdigit(s[i]); i++)
     exp = 10 * exp + (s[i] - '0');
   
   if (exp_sign < 0)
