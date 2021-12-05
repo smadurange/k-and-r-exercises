@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 }
 
 double atof(char s[]) {
-  int i, sign;
+  int i, j, sign, exp, exp_sign;
   double val, power;
 
   for (i = 0; isspace(s[i]); i++)
@@ -42,6 +42,25 @@ double atof(char s[]) {
   for (power = 1.0; isdigit(s[i]); i++) {
     val = 10.0 * val + (s[i] - '0');
     power *= 10.0;
+  }
+
+  if (s[i] == 'e' || s[i] == 'E')
+    i++;
+
+  exp_sign = s[i] == '-' ? -1 : 1;
+
+  for (i++, exp = 0; isdigit(s[i]); i++)
+    exp = 10 * exp + (s[i] - '0');
+  
+  if (exp_sign < 0)
+    exp = exp_sign * exp;
+
+  if (exp < 0) {
+    for (j = exp; j < 0; j++)
+      power *= 10.0;
+  } else {
+    for (j = 0; j < exp; j++)
+      power /= 10.0;
   }
 
   return sign * val / power;
