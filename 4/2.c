@@ -11,7 +11,6 @@ int main(int argc, char *argv[]) {
   char s[MAXLEN];
 
   printf("input: ");
-
   for (i = 0; i < MAXLEN - 1 && (c = getchar()) != '\n' && c != EOF; i++)
     s[i] = c;
   s[i] = 0;
@@ -46,10 +45,12 @@ double atof(char s[]) {
   exp_sign = s[i] == '-' ? -1 : 1;
   if (s[i] == '-' || s[i] == '+')
     i++;
+    
   for (exp = 0; isdigit(s[i]); i++)
     exp = 10 * exp + (s[i] - '0');
   if (exp_sign < 0)
     exp = exp_sign * exp;
+
   if (exp < 0) {
     for (j = exp; j < 0; j++)
       power *= 10.0;
