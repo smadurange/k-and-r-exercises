@@ -87,7 +87,6 @@ void ungetch(int c) {
 int getop(char s[]) {
   int i, c;
 
-
   while ((s[0] = c = getch()) == ' ' || c == '\t')
     ;
   s[1] = 0;
@@ -103,7 +102,7 @@ int getop(char s[]) {
     while (isdigit(s[++i] = c = getch()))
       ;
   s[i] = 0;
-  
+
   if (c != EOF)
     ungetch(c);
 
