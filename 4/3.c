@@ -75,7 +75,7 @@ double pop() {
   }
 }
 
-int getch() { return (buf > 0) ? buf[--bufp] : getchar(); }
+int getch() { return (bufp > 0) ? buf[--bufp] : getchar(); }
 
 void ungetch(int c) {
   if (bufp >= BUFSIZE)
