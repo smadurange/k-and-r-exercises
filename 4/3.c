@@ -20,7 +20,8 @@ void push(double);
 /* pop and return top value from stack */
 double pop();
 
-/* reverse Polish calculator with modulus and support for negative numbers */
+/* reverse Polish calculator with support for modulus operator and negative
+ * numbers */
 int main(int argc, char *argv[]) {
   int type;
   double op2;
