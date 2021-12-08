@@ -32,7 +32,7 @@ double peek();
  * (swap top two stack positions), d (clear stack) */
 int main(int argc, char *argv[]) {
   int type;
-  double op2;
+  double op2, op1;
   char s[MAXOP];
 
   while ((type = getop(s)) != EOF) {
@@ -69,6 +69,12 @@ int main(int argc, char *argv[]) {
       break;
     case 'c':
       push(peek());
+      break;
+    case 's':
+      op2 = pop();
+      op1 = pop();
+      push(op2);
+      push(op1);
       break;
     case '\n':
       printf("\t%.8g\n", pop());
