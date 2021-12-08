@@ -28,8 +28,8 @@ double pop();
 /* returns a value from stack without removing it */
 double peek();
 
-/* reverse Polish calculator with support for modulus operator and negative
- * numbers */
+/* adds commands p (print top val without popping), c (duplicate top val), s
+ * (swap top two stack positions), d (clear stack) */
 int main(int argc, char *argv[]) {
   int type;
   double op2;
@@ -66,7 +66,10 @@ int main(int argc, char *argv[]) {
       break;
     case 'p':
       peek();
-      break; 
+      break;
+    case 'c':
+      push(peek());
+      break;
     case '\n':
       printf("\t%.8g\n", pop());
       break;
@@ -96,16 +99,14 @@ double pop() {
 
 double peek() {
   if (sp > 0)
-    return val[sp];
+    return val[sp - 1];
   else {
     printf("error: stack empty\n");
     return 0.0;
   }
 }
 
-int getch() { 
-  return (bufp > 0) ? buf[--bufp] : getchar(); 
-}
+int getch() { return (bufp > 0) ? buf[--bufp] : getchar(); }
 
 void ungetch(int c) {
   if (bufp >= BUFSIZE)
@@ -121,7 +122,7 @@ int getop(char s[]) {
     ;
   s[1] = 0;
 
-  if (!isdigit(c) && c != '.' && c != '-') 
+  if (!isdigit(c) && c != '.' && c != '-')
     return c;
 
   i = 0;
