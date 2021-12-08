@@ -28,6 +28,9 @@ double pop();
 /* returns a value from stack without removing it */
 double peek();
 
+/* clears the stack */
+void clear();
+
 /* adds commands p (print top val without popping), c (duplicate top val), s
  * (swap top two stack positions), d (clear stack) */
 int main(int argc, char *argv[]) {
@@ -76,6 +79,9 @@ int main(int argc, char *argv[]) {
       push(op2);
       push(op1);
       break;
+    case 'd':
+      clear();
+      break;
     case '\n':
       printf("\t%.8g\n", pop());
       break;
@@ -110,6 +116,11 @@ double peek() {
     printf("error: stack empty\n");
     return 0.0;
   }
+}
+
+void clear() {
+  for (; sp > 0; sp--)
+    ;
 }
 
 int getch() { return (bufp > 0) ? buf[--bufp] : getchar(); }
