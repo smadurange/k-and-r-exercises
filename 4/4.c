@@ -7,9 +7,6 @@
 #define MAXVAL 100 /* max depth of val stack */
 #define BUFSIZE 100
 
-// commands: +, -, *, /, %, p (prints the top one)
-// c (dups top), s (swaps top two), c (clear stack)
-
 int sp = 0;         /* next free stack position */
 double val[MAXVAL]; /* value stack */
 
