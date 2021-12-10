@@ -30,8 +30,8 @@ double peek();
 /* clears the stack */
 void clear();
 
-/* adds commands peek (print top val without popping), dup (duplicate top val),
- * swap (swap top two stack positions), clear (clear stack) */
+/* adds commands "top" (print top val without popping), "dup" (duplicate top val),
+ * "swp" (swap top two stack positions), "cls" (clear stack) */
 int main(int argc, char *argv[]) {
   int type;
   double op2, op1;
@@ -67,16 +67,16 @@ int main(int argc, char *argv[]) {
         printf("error: division by zero\n");
       break;
     case FUNCTION:
-      if (strcmp("peek", s) == 0)
+      if (strcmp("top", s) == 0)
         peek();
       else if (strcmp("dup", s) == 0)
         push(peek());
-      else if (strcmp("swap", s) == 0) {
+      else if (strcmp("swp", s) == 0) {
         op2 = pop();
         op1 = pop();
         push(op2);
         push(op1);
-      } else if (strcmp("clear", s) == 0)
+      } else if (strcmp("cls", s) == 0)
         clear();
       else
         printf("error: unknown function %s\n", s);
