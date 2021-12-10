@@ -4,6 +4,7 @@
 
 #define MAXOP 100  /* max size of operand or operator */
 #define NUMBER '0' /* signal that a number was found */
+#define COP '1'    /* signal that a custom op was found */
 #define MAXVAL 100 /* max depth of val stack */
 #define BUFSIZE 100
 
@@ -28,8 +29,8 @@ double peek();
 /* clears the stack */
 void clear();
 
-/* adds commands p (print top val without popping), c (duplicate top val), s
- * (swap top two stack positions), d (clear stack) */
+/* adds commands peek (print top val without popping), dup (duplicate top val),
+ * swap (swap top two stack positions), clear (clear stack) */
 int main(int argc, char *argv[]) {
   int type;
   double op2, op1;
@@ -130,29 +131,38 @@ void ungetch(int c) {
 }
 
 int getop(char s[]) {
-  int i, c;
+  int i, c, rv;
 
   while ((s[0] = c = getch()) == ' ' || c == '\t')
     ;
   s[1] = 0;
 
-  if (!isdigit(c) && c != '.' && c != '-')
+  // operators or line feed
+  if (c == '\n' || c == '+' || c == '*' || c == '/' || c == '%')
     return c;
 
   i = 0;
-  if (isdigit(c))
-    while (isdigit(s[++i] = c = getch()))
+
+  // numbers
+  if (isdigit(c) || c == '-') {
+    if (c == '-') {
+      // minus operator
+      if (!isdigit(s[++i] = c = getch())) {
+        ungetch(c);
+        s[i] = 0;
+        return '-';
+      }
+    }
+
+    while (isdigit(s[++i] = c = getch()) || c == '.')
       ;
-  if (c == '.')
-    while (isdigit(s[++i] = c = getch()))
-      ;
-  if (c == '-')
-    while (isdigit(s[++i] = c = getch()))
-      ;
+    rv = NUMBER;
+  }
+
   s[i] = 0;
 
   if (c != EOF)
     ungetch(c);
 
-  return NUMBER;
+  return rv;
 }
