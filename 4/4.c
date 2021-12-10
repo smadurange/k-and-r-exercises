@@ -1,11 +1,12 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define MAXOP 100  /* max size of operand or operator */
-#define NUMBER '0' /* signal that a number was found */
-#define COP '1'    /* signal that a custom op was found */
-#define MAXVAL 100 /* max depth of val stack */
+#define MAXOP 100    /* max size of operand or operator */
+#define NUMBER '0'   /* signal that a number was found */
+#define FUNCTION '1' /* signal that a custom op was found */
+#define MAXVAL 100   /* max depth of val stack */
 #define BUFSIZE 100
 
 int sp = 0;         /* next free stack position */
@@ -65,20 +66,20 @@ int main(int argc, char *argv[]) {
       else
         printf("error: division by zero\n");
       break;
-    case 'p':
-      peek();
-      break;
-    case 'c':
-      push(peek());
-      break;
-    case 's':
-      op2 = pop();
-      op1 = pop();
-      push(op2);
-      push(op1);
-      break;
-    case 'd':
-      clear();
+    case FUNCTION:
+      if (strcmp("peek", s) == 0)
+        peek();
+      else if (strcmp("dup", s) == 0)
+        push(peek());
+      else if (strcmp("swap", s) == 0) {
+        op2 = pop();
+        op1 = pop();
+        push(op2);
+        push(op1);
+      } else if (strcmp("clear", s) == 0)
+        clear();
+      else
+        printf("error: unknown function %s\n", s);
       break;
     case '\n':
       printf("\t%.8g\n", pop());
@@ -155,6 +156,11 @@ int getop(char s[]) {
     while (isdigit(s[++i] = c = getch()) || c == '.')
       ;
     rv = NUMBER;
+  } else {
+    // functions
+    while (isalnum(s[++i] = c = getch()))
+      ;
+    rv = FUNCTION;
   }
 
   s[i] = 0;
