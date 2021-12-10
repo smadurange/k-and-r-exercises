@@ -145,13 +145,11 @@ int getop(char s[]) {
 
   // numbers
   if (isdigit(c) || c == '-') {
-    if (c == '-') {
-      // minus operator
-      if (!isdigit(s[++i] = c = getch())) {
-        ungetch(c);
-        s[i] = 0;
-        return '-';
-      }
+    // minus operator
+    if (c == '-' && !isdigit(s[++i] = c = getch())) {
+      ungetch(c);
+      s[i] = 0;
+      return '-';
     }
 
     while (isdigit(s[++i] = c = getch()) || c == '.')
