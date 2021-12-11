@@ -11,11 +11,13 @@
 #define VARIABLE '3'   /* signal that a variable was found */
 #define MAXVAL 100     /* max depth of val and var stack */
 #define BUFSIZE 100
-#define VARCOUNT 26 /* supported variable count */
+#define VARCOUNT 26   /* supported variable count */
+#define LASTPRINT 'L' /* variable for most recently printed val */
 
 int sp = 0;         /* next free stack position */
 double val[MAXVAL]; /* value stack */
 
+double L = 0;
 int vidx = 0;          /* variable array position */
 char varn[VARCOUNT];   /* variable name array */
 double varv[VARCOUNT]; /* variable value array */
@@ -74,9 +76,10 @@ int main(int argc, char *argv[]) {
         printf("error: division by zero\n");
       break;
     case FUNCTION:
-      if (strcmp("top", s) == 0)
-        peek();
-      else if (strcmp("dup", s) == 0)
+      if (strcmp("top", s) == 0) {
+        L = peek();
+        printf("peek top: %.8g\n", L);
+      } else if (strcmp("dup", s) == 0)
         push(peek());
       else if (strcmp("swp", s) == 0) {
         op2 = pop();
@@ -95,23 +98,32 @@ int main(int argc, char *argv[]) {
         printf("error: unknown function %s\n", s);
       break;
     case ASSIGNMENT:
-      varn[vidx] = s[0];
-      varv[vidx++] = pop();
+      if (s[0] == 'L')
+        printf("error: reserved variable %c\n", s[0]);
+      else {
+        varn[vidx] = s[0];
+        varv[vidx++] = pop();
+      }
       break;
     case VARIABLE:
-      var = 0;
-      for (i = 0; i < vidx; i++) {
-        if (varn[i] == s[0]) {
-          var = 1;
-          push(varv[i]);
-          break;
+      if (s[0] == 'L')
+        printf("last printed: %.8g\n", L);
+      else {
+        var = 0;
+        for (i = 0; i < vidx; i++) {
+          if (varn[i] == s[0]) {
+            var = 1;
+            push(varv[i]);
+            break;
+          }
         }
+        if (!var)
+          printf("error: unknown symbol %s\n", s);
       }
-      if (!var)
-        printf("error: unknown symbol %s\n", s);
       break;
     case '\n':
-      printf("\t%.8g\n", pop());
+      L = pop();
+      printf("\t%.8g\n", L);
       break;
     default:
       printf("error: unknown command %s\n", s);
@@ -193,11 +205,13 @@ int getop(char s[]) {
 
     if (count == 0) {
       // syntax "5 A =" means "A = 5"
-      if ((nc = getch()) == '=')
+      if (c != '\n' && (nc = getch()) == '=')
         rv = ASSIGNMENT;
       else {
-        ungetch(c);
-        ungetch(nc);
+        if (c != '\n') {
+          ungetch(c);
+          ungetch(nc);
+        }
         rv = VARIABLE;
       }
     } else {
