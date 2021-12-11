@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
       break;
     case FUNCTION:
       if (strcmp("top", s) == 0)
-        peek();
+        printf("peek top: %.8g\n", peek());
       else if (strcmp("dup", s) == 0)
         push(peek());
       else if (strcmp("swp", s) == 0) {
