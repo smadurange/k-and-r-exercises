@@ -2,10 +2,12 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define MAXOP 100  /* max size of operand or operator */
-#define NUMBER '0' /* signal that a number was found */
-#define MAXVAL 100 /* max depth of val stack */
+#define MAXOP 100    /* max size of operand or operator */
+#define NUMBER '0'   /* signal that a number was found */
+#define FUNCTION '1' /* signal that a custom op was found */
+#define MAXVAL 100   /* max depth of val stack */
 #define BUFSIZE 100
 
 int sp = 0;         /* next free stack position */
@@ -29,7 +31,7 @@ double peek();
 /* clears the stack */
 void clear();
 
-/* adds support sin, exp and power functions */
+/* adds support for sin, exp and pow functions */
 int main(int argc, char *argv[]) {
   int type;
   double op2, op1;
@@ -64,29 +66,26 @@ int main(int argc, char *argv[]) {
       else
         printf("error: division by zero\n");
       break;
-    case 'p':
-      peek();
-      break;
-    case 'c':
-      push(peek());
-      break;
-    case 's':
-      op2 = pop();
-      op1 = pop();
-      push(op2);
-      push(op1);
-      break;
-    case 'd':
-      clear();
-      break;
-    case 'S':
-      push(sin(pop()));
-      break;
-    case 'P':
-      push(pow(pop(), pop()));
-      break;
-    case 'E':
-      push(exp(pop()));
+    case FUNCTION:
+      if (strcmp("top", s) == 0)
+        peek();
+      else if (strcmp("dup", s) == 0)
+        push(peek());
+      else if (strcmp("swp", s) == 0) {
+        op2 = pop();
+        op1 = pop();
+        push(op2);
+        push(op1);
+      } else if (strcmp("cls", s) == 0)
+        clear();
+      else if (strcmp("sin", s) == 0)
+        push(sin(pop()));
+      else if (strcmp("exp", s) == 0)
+        push(exp(pop()));
+      else if (strcmp("pow", s) == 0)
+        push(pow(pop(), pop()));
+      else
+        printf("error: unknown function %s\n", s);
       break;
     case '\n':
       printf("\t%.8g\n", pop());
@@ -139,73 +138,35 @@ void ungetch(int c) {
 }
 
 int getop(char s[]) {
-  int i, c;
+  int i, c, rv;
 
   while ((s[0] = c = getch()) == ' ' || c == '\t')
     ;
   s[1] = 0;
 
-  if (!isdigit(c) && c != '.' && c != '-' && c != 's' && c != 'p' && c != 'e')
+  // operators or line feed
+  if (c == '\n' || c == '+' || c == '*' || c == '/' || c == '%')
     return c;
 
   i = 0;
-  if (isdigit(c))
-    while (isdigit(s[++i] = c = getch()))
-      ;
-  if (c == '.')
-    while (isdigit(s[++i] = c = getch()))
-      ;
-  if (c == '-')
-    while (isdigit(s[++i] = c = getch()))
-      ;
-  // sin or swap function
-  if (c == 's') {
-    if ((c = getch()) == ' ')
-      return 's';
-    else if (c == 'i') {
-      if ((c = getch()) == 'n') {
-        return 'S';
-      } else {
-        ungetch(c);
-        ungetch('i');
-        return 's';
-      }
-    } else {
-      ungetch(c);
-      return 's';
-    }
-  }
 
-  // power function
-  if (c == 'p') {
-    if ((c = getch()) == 'o') {
-      if ((c = getch()) == 'w') {
-        return 'P';
-      } else {
-        ungetch(c);
-        ungetch('o');
-        return 'p';
-      }
-    } else {
+  // numbers
+  if (isdigit(c) || c == '-') {
+    // minus operator
+    if (c == '-' && !isdigit(s[++i] = c = getch())) {
       ungetch(c);
-      return 'p';
+      s[i] = 0;
+      return '-';
     }
-  }
 
-  // exponent function
-  if (c == 'e') {
-    if ((c = getch()) == 'x') {
-      if ((c = getch()) == 'p') {
-        return 'E';
-      } else {
-        ungetch(c);
-        ungetch('x');
-        return 'e';
-      }
-    } else {
-      ungetch(c);
-      return 'e';
-    }
+    while (isdigit(s[++i] = c = getch()) || c == '.')
+      ;
+    rv = NUMBER;
+  } else {
+    // functions
+    while (isalnum(s[++i] = c = getch()))
+      ;
+    rv = FUNCTION;
   }
 
   s[i] = 0;
@@ -213,5 +174,5 @@ int getop(char s[]) {
   if (c != EOF)
     ungetch(c);
 
-  return NUMBER;
+  return rv;
 }
