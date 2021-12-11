@@ -202,7 +202,6 @@ int getop(char s[]) {
     int count;
     for (count = 0; isalnum(s[++i] = c = getch()); count++)
       ;
-
     if (count == 0) {
       // syntax "5 A =" means "A = 5"
       if (c != '\n' && (nc = getch()) == '=')
