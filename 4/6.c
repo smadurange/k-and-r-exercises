@@ -11,9 +11,7 @@
 #define VARIABLE '3'   /* signal that a variable was found */
 #define MAXVAL 100     /* max depth of val and var stack */
 #define BUFSIZE 100
-#define VARCOUNT                                                               \
-  26 /* supported variable count. Upper case letters reserved                  \
-      */
+#define VARCOUNT 26 /* supported variable count */
 
 int sp = 0;         /* next free stack position */
 double val[MAXVAL]; /* value stack */
