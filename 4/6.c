@@ -11,7 +11,7 @@
 #define VARIABLE '3'   /* signal that a variable was found */
 #define MAXVAL 100     /* max depth of val and var stack */
 #define BUFSIZE 100
-#define VARCOUNT 26   /* supported variable count */
+#define VARCOUNT 51   /* supported variable count */
 #define LASTPRINT 'L' /* variable for most recently printed val */
 
 int sp = 0;         /* next free stack position */
