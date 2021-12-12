@@ -170,7 +170,7 @@ void ungets(char s[]) {
   if (bufp + len - 1 >= BUFSIZE)
     printf("ungets: too many characters\n");
   else {
-    for (i = 0; i < len; i++)
+    for (i = len; i >= 0; i--)
       buf[bufp++] = s[i];
   }
 }
