@@ -10,7 +10,7 @@
 #define ASSIGNMENT '2' /* signal that a variable was found */
 #define VARIABLE '3'   /* signal that a variable was found */
 #define MAXVAL 100     /* max depth of val and var stack */
-#define BUFSIZE 100
+#define BUFSIZE 1
 #define VARCOUNT 52                            /* supported variable count */
 #define INDEX(x) (x <= 'Z' ? x - 'A' : x - 71) /* index of the variable */
 
