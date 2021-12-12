@@ -171,6 +171,7 @@ int getop(char s[]) {
     ;
   s[1] = 0;
 
+  // solution to 4.9: exit program by returning EOF to main
   if (c == EOF)
     return EOF;
 
