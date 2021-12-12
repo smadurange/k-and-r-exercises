@@ -155,31 +155,13 @@ void clear() {
     ;
 }
 
-int pushb = 0;
-int pushbval = 0;
-
-int getch() {
-  if (pushb) {
-    pushb = 0;
-    return pushbval;
-  }
-  return (bufp > 0) ? buf[--bufp] : getchar();
-}
+int getch() { return (bufp > 0) ? buf[--bufp] : getchar(); }
 
 void ungetch(int c) {
-  pushbval = c;
-  pushb = 1;
-}
-
-void ungets(char s[]) {
-  int len, i;
-  len = strlen(s);
-  if (bufp + len - 1 >= BUFSIZE)
-    printf("ungets: too many characters\n");
-  else {
-    for (i = len; i >= 0; i--)
-      buf[bufp++] = s[i];
-  }
+  if (bufp >= BUFSIZE)
+    printf("ungetch: too many characters\n");
+  else
+    buf[bufp++] = c;
 }
 
 int getop(char s[]) {
@@ -188,6 +170,9 @@ int getop(char s[]) {
   while ((s[0] = c = getch()) == ' ' || c == '\t')
     ;
   s[1] = 0;
+
+  if (c == EOF)
+    return EOF;
 
   // operators or line feed
   if (c == '\n' || c == '+' || c == '*' || c == '/' || c == '%')
