@@ -11,15 +11,15 @@
 #define VARIABLE '3'   /* signal that a variable was found */
 #define MAXVAL 100     /* max depth of val and var stack */
 #define BUFSIZE 100
-#define VARCOUNT 51   /* supported variable count */
+#define VARCOUNT 52   /* supported variable count */
 #define LASTPRINT 'L' /* variable for most recently printed val */
+
+#define INDEX(x) (x <= 'Z' ? x - 'A' : x - 71)
 
 int sp = 0;         /* next free stack position */
 double val[MAXVAL]; /* value stack */
 
 double L = 0;
-int vidx = 0;          /* variable array position */
-char varn[VARCOUNT];   /* variable name array */
 double varv[VARCOUNT]; /* variable value array */
 
 int bufp = 0;      /* next free position in buf */
@@ -42,7 +42,7 @@ void clear();
 
 /* adds support for sin, exp and pow functions */
 int main(int argc, char *argv[]) {
-  int type, i, var;
+  int type, i;
   double op2, op1;
   char s[MAXOP];
 
@@ -101,24 +101,22 @@ int main(int argc, char *argv[]) {
       if (s[0] == 'L')
         printf("error: reserved variable %c\n", s[0]);
       else {
-        varn[vidx] = s[0];
-        varv[vidx++] = pop();
+        i = INDEX(s[0]);
+        if (i < 0 || i > VARCOUNT - 1)
+          printf("error: unknown symbol %s\n", s);
+        else
+          varv[i] = pop();
       }
       break;
     case VARIABLE:
       if (s[0] == 'L')
         printf("last printed: %.8g\n", L);
       else {
-        var = 0;
-        for (i = 0; i < vidx; i++) {
-          if (varn[i] == s[0]) {
-            var = 1;
-            push(varv[i]);
-            break;
-          }
-        }
-        if (!var)
+        i = INDEX(s[0]);
+        if (i < 0 || i > VARCOUNT - 1)
           printf("error: unknown symbol %s\n", s);
+        else
+          push(varv[i]);
       }
       break;
     case '\n':
