@@ -38,7 +38,7 @@ double peek();
 /* clears the stack */
 void clear();
 
-/* adds support for sin, exp and pow functions */
+/* add support for one-letter variables and variable "lout" last printed val */
 int main(int argc, char *argv[]) {
   int type, i;
   double op2, op1;
