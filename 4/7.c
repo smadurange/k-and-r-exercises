@@ -187,7 +187,6 @@ int getop(char s[]) {
     return c;
 
   i = 0;
-
   // numbers
   if (isdigit(c) || c == '-') {
     // minus operator
@@ -196,7 +195,6 @@ int getop(char s[]) {
       s[i] = 0;
       return '-';
     }
-
     while (isdigit(s[++i] = c = getch()) || c == '.')
       ;
     rv = NUMBER;
@@ -205,9 +203,7 @@ int getop(char s[]) {
     int count;
     for (count = 0; isalnum(s[++i] = c = getch()); count++)
       ;
-
     int islout = strncmp("lout", s, 4 * sizeof(char)) == 0;
-
     if (count == 0 || islout) {
       if (islout)
         rv = VARIABLE;
@@ -218,7 +214,7 @@ int getop(char s[]) {
         if (c != '\n') {
           ungetch(c);
           ungetch(nc);
-        }
+        }  
         rv = VARIABLE;
       }
     } else {
@@ -227,7 +223,6 @@ int getop(char s[]) {
   }
 
   s[i] = 0;
-
   if (c != EOF)
     ungetch(c);
 
