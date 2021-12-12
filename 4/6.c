@@ -11,10 +11,8 @@
 #define VARIABLE '3'   /* signal that a variable was found */
 #define MAXVAL 100     /* max depth of val and var stack */
 #define BUFSIZE 100
-#define VARCOUNT 52   /* supported variable count */
-#define LPRINT "lout" /* variable for most recently printed val */
-
-#define INDEX(x) (x <= 'Z' ? x - 'A' : x - 71)
+#define VARCOUNT 52                            /* supported variable count */
+#define INDEX(x) (x <= 'Z' ? x - 'A' : x - 71) /* index of the variable */
 
 int sp = 0;         /* next free stack position */
 double val[MAXVAL]; /* value stack */
