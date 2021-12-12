@@ -12,14 +12,14 @@
 #define MAXVAL 100     /* max depth of val and var stack */
 #define BUFSIZE 100
 #define VARCOUNT 52   /* supported variable count */
-#define LASTPRINT 'L' /* variable for most recently printed val */
+#define LPRINT "lout" /* variable for most recently printed val */
 
 #define INDEX(x) (x <= 'Z' ? x - 'A' : x - 71)
 
 int sp = 0;         /* next free stack position */
 double val[MAXVAL]; /* value stack */
 
-double L = 0;
+double lout = 0;
 double varv[VARCOUNT]; /* variable value array */
 
 int bufp = 0;      /* next free position in buf */
@@ -77,8 +77,8 @@ int main(int argc, char *argv[]) {
       break;
     case FUNCTION:
       if (strcmp("top", s) == 0) {
-        L = peek();
-        printf("peek top: %.8g\n", L);
+        lout = peek();
+        printf("peek top: %.8g\n", lout);
       } else if (strcmp("dup", s) == 0)
         push(peek());
       else if (strcmp("swp", s) == 0) {
@@ -98,19 +98,15 @@ int main(int argc, char *argv[]) {
         printf("error: unknown function %s\n", s);
       break;
     case ASSIGNMENT:
-      if (s[0] == 'L')
-        printf("error: reserved variable %c\n", s[0]);
-      else {
-        i = INDEX(s[0]);
-        if (i < 0 || i > VARCOUNT - 1)
-          printf("error: unknown symbol %s\n", s);
-        else
-          varv[i] = pop();
-      }
+      i = INDEX(s[0]);
+      if (i < 0 || i > VARCOUNT - 1)
+        printf("error: unknown symbol %s\n", s);
+      else
+        varv[i] = pop();
       break;
     case VARIABLE:
-      if (s[0] == 'L')
-        printf("last printed: %.8g\n", L);
+      if (strcmp("lout", s) == 0)
+        push(lout);
       else {
         i = INDEX(s[0]);
         if (i < 0 || i > VARCOUNT - 1)
@@ -120,8 +116,8 @@ int main(int argc, char *argv[]) {
       }
       break;
     case '\n':
-      L = pop();
-      printf("\t%.8g\n", L);
+      lout = pop();
+      printf("\t%.8g\n", lout);
       break;
     default:
       printf("error: unknown command %s\n", s);
@@ -200,9 +196,14 @@ int getop(char s[]) {
     int count;
     for (count = 0; isalnum(s[++i] = c = getch()); count++)
       ;
-    if (count == 0) {
-      // syntax "5 A =" means "A = 5"
-      if (c != '\n' && (nc = getch()) == '=')
+
+    int islout = strncmp("lout", s, 4 * sizeof(char)) == 0;
+
+    if (count == 0 || islout) {
+      if (islout)
+        rv = VARIABLE;
+      else if (c != '\n' && (nc = getch()) == '=')
+        // syntax "5 A =" means "A = 5"
         rv = ASSIGNMENT;
       else {
         if (c != '\n') {
