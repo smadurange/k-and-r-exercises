@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -6,8 +7,7 @@
 
 #define NUM '0'
 #define FUN '1'
-#define ASG '2'
-#define VAR '3'
+#define VAR '2'
 
 int getop(char[]);
 void push(double);
@@ -35,11 +35,9 @@ int main(int argc, char *argv[]) {
       break;
     case '%':
       break;
+    case '=':
+      break;
     case FUN:
-      break;
-    case ASG:
-      break;
-    case VAR:
       break;
     default:
       printf("error: unknown command %s\n", s);
@@ -50,12 +48,38 @@ int main(int argc, char *argv[]) {
 }
 
 int ptr = 0;
-char line[MAXLINE];
+int line[MAXLINE];
 
 void mgetline() {
   int i, c;
+  
   for (i = 0; i < MAXLINE - 1 && (c = getchar()) != '\n' && c != EOF; i++) {
     line[i] = c;
   } 
   line[i] = 0;
+  ptr = 0;
+}
+
+int getop(char s[]) {
+  int i, c;
+
+  if (line[ptr] == 0)
+    mgetline();
+
+  // get next token 
+  for (i = 0; i < MAXOP - 1 && (c = line[ptr]) != ' ' && c != 0; i++, ptr++)
+    s[i] = c;
+  s[i] = 0;
+
+  // opertor, single digit or variable
+  if (i == 1) {
+    if (isdigit(s[0]))
+      return NUM;
+    else if (isalpha(s[0]))
+      return VAR;
+    else
+      return s[0];
+  }
+
+  return FUN;
 }
