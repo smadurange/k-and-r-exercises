@@ -19,6 +19,8 @@ int main(int argc, char *argv[]) {
   int type;
   char s[MAXOP];
 
+  printf("Press CTRL+C to exit\n");
+
   while (type == getop(s)) {
     switch (type) {
     case NUM:
@@ -45,4 +47,15 @@ int main(int argc, char *argv[]) {
   }
 
   return 0;
+}
+
+int ptr = 0;
+char line[MAXLINE];
+
+void mgetline() {
+  int i, c;
+  for (i = 0; i < MAXLINE - 1 && (c = getchar()) != '\n' && c != EOF; i++) {
+    line[i] = c;
+  } 
+  line[i] = 0;
 }
