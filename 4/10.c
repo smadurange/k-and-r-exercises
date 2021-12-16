@@ -12,6 +12,8 @@
 #define FUN '1'
 #define VAR '2'
 
+int var[52];
+
 int getop(char[]);
 void push(double);
 double peek();
@@ -93,7 +95,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int ptr = 0;
+int idx = 0;
 int line[MAXLINE];
 
 void mgetline() {
@@ -103,38 +105,30 @@ void mgetline() {
     line[i] = c;
   }
   line[i] = 0;
-  ptr = 0;
+  idx = 0;
 }
 
 int getop(char s[]) {
   int i, c;
 
-  if (line[ptr] == 0)
-    mgetline();
+  while ((s[0] = c = line[idx++]) == ' ' || c == '\t')
+    ;
+  s[1] = 0;
 
-  // get next token
-  for (i = 0; i < MAXOP - 1 && (c = line[ptr]) != ' ' && c != 0; i++, ptr++)
-    s[i] = c;
-  s[i] = 0;
+  // special characters and operators
+  if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' || c == '=' ||
+      (c == '-' && isdigit(line[idx + 1])) || c == EOF)
+    return c;
 
-  // opertor, single digit or variable
-  if (i == 1) {
-    if (isdigit(s[0]))
-      return NUM;
-    else if (isalpha(s[0]))
-      return VAR;
-    else
-      return s[0];
+  i = 0;
+  
+  if (isdigit(c) || c == '-' || (c == '.' && isdigit(line[idx + 1]))) {
+    while (isdigit((s[++i] = c = line[idx++])) || (c == '.' && isdigit(line[idx + 1])))
+      ;
+    return NUM;
   }
 
-  if (i > 1 && (isdigit(s[0]) || s[0] == '-' && isdigit(s[1])))
-    return NUM;
-
-  // last printed variable
-  if (strcmp("LOUT", s) == 0)
-    return VAR;
-
-  return FUN;
+  
 }
 
 int sp = 0;
