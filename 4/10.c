@@ -12,14 +12,16 @@
 #define FUN '1'
 #define VAR '2'
 
+#define INDEX(x) (x <= 'Z' ? x - 'A' : x - 71) /* index of the variable */
+
 int var[52];
 
-int getop(char[]);
 void push(double);
 double peek();
 double pop();
 void clear();
-double vartoval(char);
+int mgetline();
+int getop(char[]);
 
 int main(int argc, char *argv[]) {
   int type, op1, op2;
@@ -27,68 +29,51 @@ int main(int argc, char *argv[]) {
 
   printf("Press CTRL+C to exit\n");
 
-  while (type == getop(s)) {
-    switch (type) {
-    case NUM:
-      push(atof(s));
-      break;
-    case '+':
-      op1 = pop();
-      op2 = pop();
-      if (isalpha(op1))
-        op1 = vartoval(op1);
-      if (isalpha(op2))
-        op2 = vartoval(op2);
-      push(op1 + op2);
-      break;
-    case '-':
-      op1 = pop();
-      op2 = pop();
-      if (isalpha(op1))
-        op1 = vartoval(op1);
-      if (isalpha(op2))
-        op2 = vartoval(op2);
-      push(op1 - op2);
-      break;
-    case '*':
-      op1 = pop();
-      op2 = pop();
-      if (isalpha(op1))
-        op1 = vartoval(op1);
-      if (isalpha(op2))
-        op2 = vartoval(op2);
-      push(op1 * op2);
-      break;
-    case '/':
-      op1 = pop();
-      op2 = pop();
-      if (isalpha(op1))
-        op1 = vartoval(op1);
-      if (isalpha(op2))
-        op2 = vartoval(op2);
-      if (op1 == 0.0)
-        printf("error: division by zero\n");
-      else
-        push((double)op2 / op1);
-      break;
-    case '%':
-      op1 = pop();
-      op2 = pop();
-      if (isalpha(op1))
-        op1 = vartoval(op1);
-      if (isalpha(op2))
-        op2 = vartoval(op2);
-      if (op1 == 0.0)
-        printf("error: division by zero\n");
-      else
-        push((int)op2 % (int)op1);
-      break;
-    case '=':
-      break;
-    case FUN:
-      break;
-    default:
-      printf("error: unknown command %s\n", s);
+  while (mgetline()) {
+    while (type == getop(s) != 0) {
+      switch (type) {
+      case NUM:
+        push(atof(s));
+        break;
+      case '+':
+        op1 = pop();
+        op2 = pop();
+        push(op1 + op2);
+        break;
+      case '-':
+        op1 = pop();
+        op2 = pop();
+        push(op1 - op2);
+        break;
+      case '*':
+        op1 = pop();
+        op2 = pop();
+        push(op1 * op2);
+        break;
+      case '/':
+        op1 = pop();
+        op2 = pop();
+        if (op1 == 0.0)
+          printf("error: division by zero\n");
+        else
+          push((double)op2 / op1);
+        break;
+      case '%':
+        op1 = pop();
+        op2 = pop();
+        if (op1 == 0.0)
+          printf("error: division by zero\n");
+        else
+          push((int)op2 % (int)op1);
+        break;
+      case '=':
+        var[INDEX(s[0])] = pop();
+        break;
+      case FUN:
+        break;
+      default:
+        printf("error: unknown command %s\n", s);
+      }
     }
   }
 
@@ -98,14 +83,16 @@ int main(int argc, char *argv[]) {
 int idx = 0;
 int line[MAXLINE];
 
-void mgetline() {
+int mgetline() {
   int i, c;
 
   for (i = 0; i < MAXLINE - 1 && (c = getchar()) != '\n' && c != EOF; i++) {
     line[i] = c;
   }
+
   line[i] = 0;
   idx = 0;
+  return c == EOF ? 0 : 1;
 }
 
 int getop(char s[]) {
