@@ -116,19 +116,29 @@ int getop(char s[]) {
   s[1] = 0;
 
   // special characters and operators
-  if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' || c == '=' ||
+  if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' ||
       (c == '-' && isdigit(line[idx + 1])) || c == EOF)
     return c;
 
   i = 0;
-  
+
   if (isdigit(c) || c == '-' || (c == '.' && isdigit(line[idx + 1]))) {
-    while (isdigit((s[++i] = c = line[idx++])) || (c == '.' && isdigit(line[idx + 1])))
+    while (isdigit((s[++i] = c = line[idx++])) ||
+           (c == '.' && isdigit(line[idx + 1])))
       ;
     return NUM;
   }
 
-  
+  if (isalpha(c) && line[idx + 1] == ' ' && line[idx + 2] == '=') {
+    idx += 2;
+    return '=';
+  }
+
+  while (isalnum(s[++i] = c = line[idx++]))
+    ;
+  s[i] = 0;
+
+  return strcmp("LOUT", s) == 0 ? VAR : FUN;
 }
 
 int sp = 0;
