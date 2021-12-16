@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
   int type, op1, op2;
   char s[MAXOP];
 
-  printf("Press CTRL+C to exit\n");
+  printf("Press Ctrl+D to exit\n");
 
   while (mgetline()) {
     while (type == getop(s) != 0) {
