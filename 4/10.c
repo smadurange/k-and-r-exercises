@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
   printf("Press Ctrl+D to exit\n");
 
   while (mgetline()) {
-    while (type == getop(s) != 0) {
+    while ((type = getop(s)) != 0) {
       switch (type) {
       case NUM:
         push(atof(s));
