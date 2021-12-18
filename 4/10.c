@@ -34,7 +34,8 @@ int getop(char[]);
       - press enter to print the value at the top of the stack.
  */
 int main(int argc, char *argv[]) {
-  int type, op1, op2;
+  int type;
+  double op1, op2;
   char s[MAXOP];
 
   while (mgetline()) {
@@ -153,9 +154,8 @@ int getop(char s[]) {
 
   i = 0;
 
-  if (isdigit(c) || c == '-' || (c == '.' && isdigit(line[idx + 1]))) {
-    while (isdigit((s[++i] = c = line[idx++])) ||
-           (c == '.' && isdigit(line[idx + 1])))
+  if (isdigit(c) || c == '-' || c == '.') {
+    while (isdigit((s[++i] = c = line[idx++])) || c == '.')
       ;
     idx--;
     rc = NUM;
