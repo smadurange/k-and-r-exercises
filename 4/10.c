@@ -50,8 +50,8 @@ int main(int argc, char *argv[]) {
         push(op1 + op2);
         break;
       case '-':
-        op1 = pop();
         op2 = pop();
+        op1 = pop();
         push(op1 - op2);
         break;
       case '*':
@@ -147,7 +147,7 @@ int getop(char s[]) {
 
   // special characters and operators
   if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' || c == '\n' ||
-      (c == '-' && !isdigit(line[idx + 1])) || c == EOF)
+      (c == '-' && !isdigit(line[idx])) || c == EOF)
     return c;
 
   i = 0;
