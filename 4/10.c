@@ -77,6 +77,30 @@ int main(int argc, char *argv[]) {
           push(var[INDEX(s[0])]);
         break;
       case FUN:
+        if (strcmp("sin", s) == 0)
+          push(sin(pop()));
+        else if (strcmp("cos", s) == 0)
+          push(cos(pop()));
+        else if (strcmp("tan", s) == 0)
+          push(tan(pop()));
+        else if (strcmp("exp", s) == 0)
+          push(exp(pop()));
+        else if (strcmp("pow", s) == 0)
+          push(pow(pop(), pop()));
+        else if (strcmp("cls", s) == 0)
+          clear();
+        else if (strcmp("top", s) == 0) {
+          lout = peek();
+          printf("\t%.8g\n", lout);
+        } else if (strcmp("swp", s) == 0) {
+          op2 = pop();
+          op1 = pop();
+          push(op2);
+          push(op1);
+        } else if (strcmp("dup", s) == 0)
+          push(peek());
+        else
+          printf("error: unknown function %s\n", s);
         break;
       case '\n':
         lout = pop();
