@@ -122,6 +122,8 @@ int mgetline() {
 
   for (i = 0; i < MAXLINE - 1 && (c = getchar()) != EOF; i++) {
     line[i] = c;
+    if (c == '\n')
+      break;
   }
 
   line[i] = 0;
