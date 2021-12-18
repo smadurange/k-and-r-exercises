@@ -30,7 +30,7 @@ int getop(char[]);
       - mathematical functions: sin, cos, tan, exp, pow.
       - custom functions: swp (swap top 2 values), dup (duplicate last value),
         top (peek at the stack top), cls (clear stack).
-      - operators: +, -, *, /, % and =
+      - operators: +, -, *, /, % and =.
       - press enter to print the value at the top of the stack.
  */
 int main(int argc, char *argv[]) {
