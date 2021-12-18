@@ -119,12 +119,11 @@ int line[MAXLINE];
 int mgetline() {
   int i, c;
 
-  for (i = 0; i < MAXLINE - 1 && (c = getchar()) != EOF; i++) {
+  for (i = 0; i < MAXLINE - 1 && (c = getchar()) != '\n' && c != EOF; i++) {
     line[i] = c;
-    if (c == '\n')
-      break;
   }
 
+  line[i++] = '\n';
   line[i] = 0;
   idx = 0;
   return c == EOF ? 0 : 1;
@@ -149,6 +148,7 @@ int getop(char s[]) {
     while (isdigit((s[++i] = c = line[idx++])) ||
            (c == '.' && isdigit(line[idx + 1])))
       ;
+    idx--;
     rc = NUM;
   } else if (isalpha(c) && line[idx + 1] == ' ' && line[idx + 2] == '=') {
     idx += 2;
@@ -156,6 +156,8 @@ int getop(char s[]) {
   } else {
     while (isalnum(s[++i] = c = line[idx++]))
       ;
+    s[i] = 0;
+    idx--;
     rc = strcmp("LOUT", s) == 0 ? VAR : FUN;
   }
 
