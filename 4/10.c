@@ -129,13 +129,12 @@ int line[MAXLINE];
 int mgetline() {
   int i, c;
 
-  for (i = 0; i < MAXLINE - 1 && (c = getchar()) != '\n' && c != EOF; i++) {
+  for (i = 0; i < MAXLINE - 1 && (c = getchar()) != '\n' && c != EOF; i++)
     line[i] = c;
-  }
 
   line[i++] = '\n';
   line[i] = 0;
-  idx = 0;
+  idx = 0; 
   return c == EOF ? 0 : 1;
 }
 
@@ -148,9 +147,8 @@ int getop(char s[]) {
 
   // special characters and operators
   if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' || c == '\n' ||
-      (c == '-' && !isdigit(line[idx + 1])) || c == EOF) {
+      (c == '-' && !isdigit(line[idx + 1])) || c == EOF)
     return c;
-  }
 
   i = 0;
 
