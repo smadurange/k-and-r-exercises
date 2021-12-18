@@ -150,7 +150,8 @@ int getop(char s[]) {
       ;
     idx--;
     rc = NUM;
-  } else if (isalpha(c) && line[idx + 1] == ' ' && line[idx + 2] == '=') {
+  } else if (isalpha(c) && line[idx + 1] == '=') {
+    s[++i] = c;
     idx += 2;
     rc = '=';
   } else {
@@ -158,7 +159,7 @@ int getop(char s[]) {
       ;
     s[i] = 0;
     idx--;
-    rc = strcmp("LOUT", s) == 0 ? VAR : FUN;
+    rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
   }
 
   s[i] = 0;
