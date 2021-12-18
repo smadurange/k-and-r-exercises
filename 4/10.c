@@ -15,6 +15,7 @@
 #define INDEX(x) (x <= 'Z' ? x - 'A' : x - 71) /* index of the variable */
 
 int var[52];
+double lout;
 
 void push(double);
 double peek();
@@ -69,8 +70,17 @@ int main(int argc, char *argv[]) {
       case '=':
         var[INDEX(s[0])] = pop();
         break;
+      case VAR:
+        if (strcmp("LOUT", s) == 0)
+          push(lout);
+        else
+          push(var[INDEX(s[0])]);
+        break;
       case FUN:
         break;
+      case '\n':
+        lout = pop();
+        printf("\t%.8g\n", lout);
       default:
         printf("error: unknown command %s\n", s);
       }
@@ -86,7 +96,7 @@ int line[MAXLINE];
 int mgetline() {
   int i, c;
 
-  for (i = 0; i < MAXLINE - 1 && (c = getchar()) != '\n' && c != EOF; i++) {
+  for (i = 0; i < MAXLINE - 1 && (c = getchar()) != EOF; i++) {
     line[i] = c;
   }
 
@@ -103,7 +113,7 @@ int getop(char s[]) {
   s[1] = 0;
 
   // special characters and operators
-  if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' ||
+  if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' || c == '\n' ||
       (c == '-' && isdigit(line[idx + 1])) || c == EOF)
     return c;
 
