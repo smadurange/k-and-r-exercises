@@ -55,25 +55,25 @@ int main(int argc, char *argv[]) {
         push(op1 - op2);
         break;
       case '*':
-        op1 = pop();
         op2 = pop();
+        op1 = pop();
         push(op1 * op2);
         break;
       case '/':
-        op1 = pop();
         op2 = pop();
+        op1 = pop();
         if (op1 == 0.0)
           printf("error: division by zero\n");
         else
-          push((double)op2 / op1);
+          push((double)op1 / op2);
         break;
       case '%':
-        op1 = pop();
         op2 = pop();
-        if (op1 == 0.0)
+        op1 = pop();
+        if (op2 == 0.0)
           printf("error: division by zero\n");
         else
-          push((int)op2 % (int)op1);
+          push((int)op1 % (int)op2);
         break;
       case '=':
         var[INDEX(s[0])] = pop();
