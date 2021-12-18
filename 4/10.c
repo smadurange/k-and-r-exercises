@@ -28,8 +28,6 @@ int main(int argc, char *argv[]) {
   int type, op1, op2;
   char s[MAXOP];
 
-  printf("Press Ctrl+D to exit\n");
-
   while (mgetline()) {
     while ((type = getop(s)) != 0) {
       switch (type) {
@@ -105,6 +103,7 @@ int main(int argc, char *argv[]) {
       case '\n':
         lout = pop();
         printf("\t%.8g\n", lout);
+        break;
       default:
         printf("error: unknown command %s\n", s);
       }
@@ -132,7 +131,7 @@ int mgetline() {
 }
 
 int getop(char s[]) {
-  int i, c;
+  int i, c, rc;
 
   while ((s[0] = c = line[idx++]) == ' ' || c == '\t')
     ;
@@ -140,8 +139,9 @@ int getop(char s[]) {
 
   // special characters and operators
   if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' || c == '\n' ||
-      (c == '-' && isdigit(line[idx + 1])) || c == EOF)
+      (c == '-' && !isdigit(line[idx + 1])) || c == EOF) {
     return c;
+  }
 
   i = 0;
 
@@ -149,19 +149,18 @@ int getop(char s[]) {
     while (isdigit((s[++i] = c = line[idx++])) ||
            (c == '.' && isdigit(line[idx + 1])))
       ;
-    return NUM;
-  }
-
-  if (isalpha(c) && line[idx + 1] == ' ' && line[idx + 2] == '=') {
+    rc = NUM;
+  } else if (isalpha(c) && line[idx + 1] == ' ' && line[idx + 2] == '=') {
     idx += 2;
-    return '=';
+    rc = '=';
+  } else {
+    while (isalnum(s[++i] = c = line[idx++]))
+      ;
+    rc = strcmp("LOUT", s) == 0 ? VAR : FUN;
   }
 
-  while (isalnum(s[++i] = c = line[idx++]))
-    ;
   s[i] = 0;
-
-  return strcmp("LOUT", s) == 0 ? VAR : FUN;
+  return rc;
 }
 
 int sp = 0;
