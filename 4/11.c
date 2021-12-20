@@ -124,6 +124,48 @@ char buf[BUFSIZE];
 
 int getch() { return (bufp > 0) ? buf[--bufp] : getchar(); }
 
+int getop(char s[]) {
+  int c, i, rc;
+  static int pc;
+
+  pc = EOF;
+
+  if (pc != EOF) {
+    c = pc;
+    pc = EOF;
+  } else {
+    while ((s[0] = c = getch()) == ' ' || c == '\t')
+      ;
+    s[1] = 0;
+  }
+
+  // special characters and operators
+  if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' || c == '\n' ||
+      (c == '-' && !isdigit(c)) || c == EOF)
+    return c;
+
+  i = 0;
+
+  if (isdigit(c) || c == '-' || c == '.') {
+    while (isdigit((s[++i] = c = getch())) || c == '.')
+      ;
+    pc = c;
+    rc = NUM;
+  } else if (isalpha(c) && getch() == '=') {
+    s[++i] = c;
+    rc = '=';
+  } else {
+    while (isalnum(s[++i] = c = getch()))
+      ;
+    s[i] = 0;
+    pc = c;
+    rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
+  }
+
+  s[i] = 0; 
+  return rc;
+}
+
 int sp = 0;
 double stack[HEIGHT];
 
