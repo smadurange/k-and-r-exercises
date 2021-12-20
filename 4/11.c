@@ -17,11 +17,11 @@
 char var[52];
 double lout = 0.0;
 
-int getop(char[]);
-void push(double);
+void clear();
 double pop();
 double peek();
-void clear();
+int getop(char[]);
+void push(double);
 
 /* Stack based reverse Polish notation calculator without ungetch()
       - single uppercase and lowercase characters are variables (syntax 2 A =);
