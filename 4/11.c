@@ -6,6 +6,7 @@
 
 #define MAXOP 100
 #define HEIGHT 1000
+#define BUFSIZE 100
 
 #define NUM '0'
 #define FUN '1'
@@ -117,6 +118,11 @@ int main(int argc, char *argv[]) {
   }
   return 0;
 }
+
+int bufp = 0;
+char buf[BUFSIZE];
+
+int getch() { return (bufp > 0) ? buf[--bufp] : getchar(); }
 
 int sp = 0;
 double stack[HEIGHT];
