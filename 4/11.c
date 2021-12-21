@@ -14,7 +14,7 @@
 
 #define INDEX(x) (x <= 'Z' ? x - 'A' : x - 71) /* index of the variable */
 
-char var[52];
+double var[52];
 double lout = 0.0;
 
 void clear();
@@ -148,15 +148,20 @@ int getop(char s[]) {
       ;
     pc = c;
     rc = i == 1 && s[0] == '-' ? '-' : NUM;
-  } else if (isalpha(c) && getch() == '=') {
-    s[++i] = c;
-    rc = '=';
   } else {
     while (isalnum(s[++i] = c = getch()))
       ;
     s[i] = 0;
     pc = c;
-    rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
+    if (c == ' ') {
+      if ((c = getch()) == '=')
+        rc = '=';
+      else {
+        pc = c;
+        rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
+      }
+    } else
+      rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
   }
 
   s[i] = 0;
