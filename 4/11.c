@@ -144,7 +144,7 @@ int getop(char s[]) {
   i = 0;
 
   if (isdigit(c) || c == '.' || c == '-') {
-    while (isdigit((s[++i] = c = getch())) || c == '.')
+    while (isdigit(s[++i] = c = getch()) || c == '.')
       ;
     pc = c;
     rc = i == 1 && s[0] == '-' ? '-' : NUM;
@@ -152,16 +152,18 @@ int getop(char s[]) {
     while (isalnum(s[++i] = c = getch()))
       ;
     s[i] = 0;
-    pc = c;
-    if (c == ' ') {
+    if (i == 1) {
       if ((c = getch()) == '=')
         rc = '=';
       else {
         pc = c;
-        rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
+        rc = VAR;
       }
-    } else
+    }
+    else {
+      pc = c;
       rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
+    }
   }
 
   s[i] = 0;
