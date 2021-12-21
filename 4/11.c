@@ -126,11 +126,11 @@ int getch() { return (bufp > 0) ? buf[--bufp] : getchar(); }
 
 int getop(char s[]) {
   int c, i, rc;
-  static int pc = EOF;
+  static int pc = ' ';
 
-  if (pc != EOF && pc != ' ' && pc != '\t') {
+  if (pc != ' ' && pc != '\t') {
     c = pc;
-    pc = EOF;
+    pc = ' ';
   } else {
     while ((s[0] = c = getch()) == ' ' || c == '\t')
       ;
