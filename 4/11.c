@@ -126,11 +126,9 @@ int getch() { return (bufp > 0) ? buf[--bufp] : getchar(); }
 
 int getop(char s[]) {
   int c, i, rc;
-  static int pc;
+  static int pc = EOF;
 
-  pc = EOF;
-
-  if (pc != EOF) {
+  if (pc != EOF && pc != ' ' && pc != '\t') {
     c = pc;
     pc = EOF;
   } else {
@@ -140,17 +138,16 @@ int getop(char s[]) {
   }
 
   // special characters and operators
-  if (c == 0 || c == '+' || c == '*' || c == '/' || c == '%' || c == '\n' ||
-      (c == '-' && !isdigit(c)) || c == EOF)
+  if (c == '+' || c == '*' || c == '/' || c == '%' || c == '\n' || c == EOF)
     return c;
 
   i = 0;
 
-  if (isdigit(c) || c == '-' || c == '.') {
+  if (isdigit(c) || c == '.' || c == '-') {
     while (isdigit((s[++i] = c = getch())) || c == '.')
       ;
     pc = c;
-    rc = NUM;
+    rc = i == 1 && s[0] == '-' ? '-' : NUM;
   } else if (isalpha(c) && getch() == '=') {
     s[++i] = c;
     rc = '=';
