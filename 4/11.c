@@ -159,8 +159,7 @@ int getop(char s[]) {
         pc = c;
         rc = VAR;
       }
-    }
-    else {
+    } else {
       pc = c;
       rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
     }
