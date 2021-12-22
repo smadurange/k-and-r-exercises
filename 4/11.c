@@ -130,6 +130,7 @@ int getop(char s[]) {
 
   if (pc != ' ' && pc != '\t') {
     s[0] = c = pc;
+    s[1] = 0;
     pc = ' ';
   } else {
     while ((s[0] = c = getch()) == ' ' || c == '\t')
