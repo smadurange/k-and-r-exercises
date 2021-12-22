@@ -129,7 +129,7 @@ int getop(char s[]) {
   static int pc = ' ';
 
   if (pc != ' ' && pc != '\t') {
-    c = pc;
+    s[0] = c = pc;
     pc = ' ';
   } else {
     while ((s[0] = c = getch()) == ' ' || c == '\t')
@@ -153,7 +153,7 @@ int getop(char s[]) {
       ;
     s[i] = 0;
     if (i == 1) {
-      if ((c = getch()) == '=')
+      if (c == '=' || (c = getch()) == '=')
         rc = '=';
       else {
         pc = c;
@@ -161,7 +161,7 @@ int getop(char s[]) {
       }
     } else {
       pc = c;
-      rc = strcmp("LOUT", s) == 0 || strlen(s) == 1 ? VAR : FUN;
+      rc = strcmp("LOUT", s) == 0 ? VAR : FUN;
     }
   }
 
