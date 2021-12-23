@@ -24,12 +24,6 @@ int main() {
 int step = 0;
 
 void mitoa(int n, char s[]) {
-  if (step >= MAXLEN - 1) {
-    s[MAXLEN - 1] = 0;
-    printf("error: number too large.\n");
-    return;
-  }
-
   if (n < 0) {
     s[step++] = '-';
     n = -n;
