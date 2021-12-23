@@ -7,6 +7,7 @@
 void mitoa(int, char[]);
 int mgetline(char[], int);
 
+/* Converts an integer to string using recursion */
 int main() {
   int n;
   char s1[MAXLEN], s2[MAXLEN];
@@ -43,5 +44,5 @@ int mgetline(char s[], int max) {
     s[i] = c;
   s[i] = 0;
   
-  return c != '\n' && c != EOF ? -1 : i - 1;
+  return c == EOF ? 0 : 1;
 }
