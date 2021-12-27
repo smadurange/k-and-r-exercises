@@ -63,7 +63,7 @@ int getfloat(float *pf) {
     *pf = 10.0 * *pf + (c - '0');
   }
 
-  *pf = (sign * *pf) / div;
+  *pf = sign * *pf / div;
 
   if (c != EOF)
     ungetch(c);
