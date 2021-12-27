@@ -57,10 +57,8 @@ int getfloat(float *pf) {
       rad++;
       continue;
     }
-
     if (rad)
       div *= 10;
-
     *pf = 10.0 * *pf + (c - '0');
   }
 
