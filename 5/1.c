@@ -5,7 +5,7 @@
 
 int getint(int *);
 
-/* Converts input to integer using a pointer to a variable */
+/* Converts input to an integer using a pointer to a variable */
 int main(int argc, char *argv[]) {
   int rc, n;
 
