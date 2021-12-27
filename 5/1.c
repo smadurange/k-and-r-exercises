@@ -5,11 +5,15 @@
 
 int getint(int *);
 
+/* Converts input to integer using a pointer to a variable */
 int main(int argc, char *argv[]) {
   int rc, n;
 
   while ((rc = getint(&n)) != EOF && rc != 0)
     printf("\t%d\n", n);
+
+  if (rc == 0)
+    printf("error: not an integer\n");
 
   return 0;
 }
@@ -39,8 +43,10 @@ int getint(int *pn) {
 
   sign = (c == '-') ? -1 : 1;
 
-  if (c == '+' || c == '-')
-    c = getch();
+  if ((c == '+' || c == '-') && !isdigit(c = getch())) {
+    ungetch(c);
+    return 0;
+  }
 
   for (*pn = 0; isdigit(c); c = getch())
     *pn = 10 * *pn + (c - '0');
