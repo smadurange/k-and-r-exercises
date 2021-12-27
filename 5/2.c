@@ -5,6 +5,7 @@
 
 int getfloat(float *);
 
+/* Converts input string to a float using a ptr to a variable */
 int main(int argc, char *argv[]) {
   int rc;
   float f;
