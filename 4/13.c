@@ -11,10 +11,9 @@ int main(int argc, char *argv[]) {
   char *s;
   size_t n;
 
-  s = malloc(MAXLEN);
-  n = sizeof(s);
+  s = malloc(sizeof(char) * MAXLEN);
 
-  getline(&s, &n, stdin);
+  fgets(s, MAXLEN, stdin);
   reverse(s, 0, strlen(s) - 2);
   printf("\t%s\n", s);
 
