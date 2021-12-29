@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,18 +9,16 @@ void mstrcat(char *, char *);
 
 int main(int argc, char *argv[]) {
   char *s, *t;
-  size_t n;
 
-  s = malloc(MAXLEN);
-  t = malloc(MAXLEN);
-  n = sizeof(s);
+  s = malloc(sizeof(char) * MAXLEN);
+  t = malloc(sizeof(char) * MAXLEN);
 
   printf("first str: ");
-  getline(&s, &n, stdin);
+  fgets(s, MAXLEN, stdin);
   s[strlen(s) - 1] = 0;
 
   printf("second str: ");
-  getline(&t, &n, stdin);
+  fgets(t, MAXLEN, stdin);
   t[strlen(t) - 1] = 0;
 
   mstrcat(s, t);
