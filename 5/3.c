@@ -1,6 +1,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAXLEN 1000
 
@@ -16,9 +17,11 @@ int main(int argc, char *argv[]) {
 
   printf("first str: ");
   getline(&s, &n, stdin);
+  s[strlen(s) - 1] = 0;
 
   printf("second str: ");
   getline(&t, &n, stdin);
+  t[strlen(t) - 1] = 0;
 
   mstrcat(s, t);
   printf("strcat: %s\n", s);
@@ -31,7 +34,6 @@ void mstrcat(char *s, char *t) {
 
   for (i = 0; i < MAXLEN - 1 && *s++; i++)
     ;
-  for (s -= 2; i < MAXLEN - 1 && (*s++ = *t++) != '\n'; i++)
+  for (s--; i < MAXLEN - 1 && (*s++ = *t++); i++)
     ;
-  *s = 0;
 }
