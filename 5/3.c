@@ -5,7 +5,8 @@
 
 #define MAXLEN 1000
 
-void mstrcat(char *, char *);
+/* Copies str t to the end of str s */
+void mstrcat(char *s, char *t);
 
 int main(int argc, char *argv[]) {
   char *s, *t;
