@@ -32,8 +32,8 @@ int main(int argc, char *argv[]) {
 void mstrcat(char *s, char *t) {
   int i;
 
-  for (i = 0; i < MAXLEN - 1 && *s++; i++)
+  for (i = 0; i < MAXLEN && *s++; i++)
     ;
-  for (s--; i < MAXLEN - 1 && (*s++ = *t++); i++)
+  for (s--; i < MAXLEN && (*s++ = *t++); i++)
     ;
 }
