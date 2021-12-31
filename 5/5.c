@@ -20,8 +20,9 @@ int main(int argc, char *argv[]) {
   mstrncpy(s, t, n);
   printf("mstrncpy: %s\n", s);
 
+  n = 7;
   t = "may the force be with you";
-  mstrncat(s, t, 7);
+  mstrncat(s, t, n);
   printf("mstrncat: %s\n", s);
 
   free(s);
