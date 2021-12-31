@@ -23,6 +23,9 @@ int main(int argc, char *argv[]) {
 
   mstrcat(s, t);
   printf("strcat: %s\n", s);
+  
+  free(s);
+  free(t);
 
   return 0;
 }
