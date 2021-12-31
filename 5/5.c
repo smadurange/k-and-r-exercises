@@ -9,6 +9,7 @@ void mstrncpy(char *s, char *t, int n);
 void mstrncat(char *s, char *t, int n);
 int mstrncmp(char *s, char *t, int n);
 
+/* Versions of strncpy, strncat and strncmp upto n most char */
 int main(int argc, char *argv[]) {
   int n;
   char *s, *t;
