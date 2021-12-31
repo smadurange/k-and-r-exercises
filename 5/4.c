@@ -22,6 +22,9 @@ int main(int argc, char *argv[]) {
   t[strlen(t) - 1] = 0;
 
   printf("rv: %s\n", strend(s, t) ? "true" : "false");
+  
+  free(s);
+  free(t);
 
   return 0;
 }
