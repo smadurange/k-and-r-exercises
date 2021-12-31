@@ -7,7 +7,7 @@
 
 void mstrncpy(char *s, char *t, int n);
 void mstrncat(char *s, char *t, int n);
-void mstrncmp(char *s, char *t, int n);
+int mstrncmp(char *s, char *t, int n);
 
 int main(int argc, char *argv[]) {
   int n;
@@ -22,9 +22,14 @@ int main(int argc, char *argv[]) {
 
   n = 7;
   t = "may the force be with you";
+
   mstrncat(s, t, n);
   printf("mstrncat: %s\n", s);
 
+  n = 5;
+  t = "hello";
+
+  printf("mstrcmp: %d\n", mstrncmp(s, t, n));
   free(s);
 
   return 0;
@@ -38,4 +43,13 @@ void mstrncpy(char *s, char *t, int n) {
 void mstrncat(char *s, char *t, int n) {
   for (s += strlen(s); n > 0 && (*s++ = *t++) != 0; n--)
     ;
+}
+
+int mstrncmp(char *s, char *t, int n) {
+  for (; n > 0 && *t != 0; s++, t++, n--) {
+    if (*s != *t)
+      return *s - *t;
+  }
+
+  return 0;
 }
