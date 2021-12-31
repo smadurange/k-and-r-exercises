@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,12 +14,16 @@ int main(int argc, char *argv[]) {
   char *s, *t;
 
   n = 5;
-  s = malloc(sizeof(char) * (n + 1));
+  s = malloc(sizeof(char) * MAXLEN);
   t = "hello, world!";
-  
+
   mstrncpy(s, t, n);
-  printf("strncpy: %s\n", s);
-  
+  printf("mstrncpy: %s\n", s);
+
+  t = "may the force be with you";
+  mstrncat(s, t, 7);
+  printf("mstrncat: %s\n", s);
+
   free(s);
 
   return 0;
@@ -26,5 +31,10 @@ int main(int argc, char *argv[]) {
 
 void mstrncpy(char *s, char *t, int n) {
   for (; n > 0 && (*s++ = *t++) != 0; n--)
+    ;
+}
+
+void mstrncat(char *s, char *t, int n) {
+  for (s += strlen(s); n > 0 && (*s++ = *t++) != 0; n--)
     ;
 }
