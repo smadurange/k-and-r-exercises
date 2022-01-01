@@ -6,7 +6,7 @@ int mgetline(char *s, int lim) {
 
   for (i = 0; i < lim - 1 && (*s++ = getchar()) != EOF && *s != '\n'; i++)
     ;
-    
+
   if (*s == EOF)
     *s = 0;
   else {
@@ -15,4 +15,13 @@ int mgetline(char *s, int lim) {
   }
 
   return i;
+}
+
+int matoi(char *s) {
+  int n;
+
+  while (*s >= '0' && *s <= '9')
+    n = 10 * n + (*s++ - '0');
+
+  return n;
 }
