@@ -6,10 +6,13 @@ int mgetline(char *s, int lim) {
 
   for (i = 0; i < lim - 1 && (*s++ = getchar()) != EOF && *s != '\n'; i++)
     ;
+    
   if (*s == EOF)
     *s = 0;
-  else
+  else {
     *++s = 0;
+    i++;
+  }
 
   return i;
 }
