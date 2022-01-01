@@ -20,8 +20,8 @@ int mgetline(char *s, int lim) {
 int matoi(char *s) {
   int n;
 
-  while (*s >= '0' && *s <= '9')
-    n = 10 * n + (*s++ - '0');
+  for (n = 0; *s >= '0' && *s <= '9'; s++)
+    n = 10 * n + (*s - '0');
 
   return n;
 }
