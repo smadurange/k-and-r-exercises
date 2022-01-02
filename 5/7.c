@@ -13,9 +13,9 @@ int main() {
   char **lines;
 
   lines = malloc(sizeof(char *) * MAXLINES);
-
   for (i = 0; i < MAXLINES - 1; i++)
     lines[i] = malloc(sizeof(char) * MAXLEN);
+    
   count = readlines(lines, MAXLINES);
 
   for (i = 0; i < count; i++)
