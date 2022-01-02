@@ -5,6 +5,7 @@
 #define MAXLEN 1000
 #define MAXLINES 5000
 
+/* Read lines into array without allocating storage */
 int readlines(char **lines, int maxlines);
 
 int main() {
