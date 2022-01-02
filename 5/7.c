@@ -26,11 +26,10 @@ int main() {
 
 int readlines(char **lines, int maxlines) {
   int i, len;
-  char *s;
+  char s[MAXLEN];
 
   for (i = 0; i < maxlines; i++) {
-    s = fgets(s, MAXLEN, stdin);
-    if (!s)
+    if (!fgets(s, MAXLEN, stdin))
       return i;
     len = strlen(s);
     strncpy(*lines, s, len - 1);
