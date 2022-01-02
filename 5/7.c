@@ -15,12 +15,15 @@ int main() {
   lines = malloc(sizeof(char *) * MAXLINES);
   for (i = 0; i < MAXLINES - 1; i++)
     lines[i] = malloc(sizeof(char) * MAXLEN);
-    
+
   count = readlines(lines, MAXLINES);
 
-  for (i = 0; i < count; i++)
-    printf("L%d: %s\n", i + 1, *lines++);
-
+  for (i = 0; i < count; i++) {
+    printf("L%d: %s\n", i + 1, lines[i]);
+    free(lines[i]);
+  }
+  
+  free(lines);
   return 0;
 }
 
