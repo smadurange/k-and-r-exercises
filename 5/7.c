@@ -28,7 +28,7 @@ int readlines(char **lines, int maxlines) {
   int i, len;
   char *s;
 
-  for (i = 0; i <= maxlines; i++) {
+  for (i = 0; i < maxlines; i++) {
     s = fgets(s, MAXLEN, stdin);
     if (!s)
       return i;
