@@ -35,7 +35,7 @@ int day_of_year(int year, int month, int day) {
 /* Sets month and day from day of year */
 void month_day(int year, int yearday, int *pmonth, int *pday) {
   int i, leap;
-  
+
   if (year < 0) {
     *pmonth = *pday = 0;
     printf("error: invalid year\n");
