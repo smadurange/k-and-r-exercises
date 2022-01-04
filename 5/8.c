@@ -37,13 +37,13 @@ void month_day(int year, int yearday, int *pmonth, int *pday) {
   int i, leap;
 
   if (year < 0) {
-    *pmonth = *pday = 0;
+    *pmonth = *pday = -1;
     printf("error: invalid year\n");
     return;
   }
 
   if (yearday < 1) {
-    *pmonth = *pday = 0;
+    *pmonth = *pday = -1;
     printf("error: invalid yearday\n");
     return;
   }
