@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
     op1 = val[--i];
     switch (op[j++]) {
     case '+':
-      val[++i] = op1 + op2; 
+      val[++i] = op1 + op2;
       break;
     case '-':
       val[++i] = op1 - op2; 
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  printf("\t%d\n", val[0]);
+  printf("\t%d\n", val[i]);
 
   return 0;
 }
