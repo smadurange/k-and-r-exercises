@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     printf("Usage: expr 2 3 4 + *\n");
     return 1;
   }
-  
+
   for(i = 0, j = 0, ++argv; --argc > 0 && i < MAXLEN - 1 && j < MAXLEN - 1; argv++) {
     s = *argv;
     if (isdigit(*s))
@@ -33,19 +33,19 @@ int main(int argc, char *argv[]) {
     op1 = val[--i];
     switch (op[j++]) {
     case '+':
-      val[++i] = op1 + op2;
+      val[i++] = op1 + op2;
       break;
     case '-':
-      val[++i] = op1 - op2; 
+      val[i++] = op1 - op2; 
       break;
     case '*':
-      val[++i] = op1 * op2; 
+      val[i++] = op1 * op2; 
       break;
     case '/':
-      val[++i] = op1 / op2; 
+      val[i++] = op1 / op2; 
       break;
     case '%':
-      val[++i] = op1 % op2; 
+      val[i++] = op1 % op2; 
       break;
     default:
       printf("error: unknown op\n");
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  printf("\t%d\n", val[i]);
+  printf("\t%d\n", val[--i]);
 
   return 0;
 }
