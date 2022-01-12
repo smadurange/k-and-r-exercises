@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
       val[++i] = op1 % op2; 
       break;
     default:
-      printf("error: unkknown op\n");
+      printf("error: unknown op\n");
       return 1;
     }
   }
