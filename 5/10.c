@@ -4,6 +4,7 @@
 
 #define MAXLEN 1000
 
+/* Evaluates reverse Polish expressions */
 int main(int argc, char *argv[]) {
   char op[MAXLEN], *s; 
   int val[MAXLEN], i, j, k, op1, op2;
