@@ -42,6 +42,6 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  printf("\t%s\n", t);
+  printf("%s:\n%s\n", op == 'e' ? "entabbed" : "detabbed", t);
   return 0;
 }
