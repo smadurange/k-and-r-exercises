@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     colc = 1;
   }
 
-  printf("Enter text to %s\n", op == 'e' ? "entab" : "detab");
+  printf("Enter text to %s and press CTRL+D\n", op == 'e' ? "entab" : "detab");
   gettext(s, MAXTEXTLEN);
 
   switch (op) {
