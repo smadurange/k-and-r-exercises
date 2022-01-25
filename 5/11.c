@@ -45,3 +45,12 @@ int main(int argc, char *argv[]) {
   printf("%s:\n%s\n", op == 'e' ? "entabbed" : "detabbed", t);
   return 0;
 }
+
+int gettext(char *s, int max) {
+  int i, c;
+
+  for (i = 0; i < max && (c = getchar()) != EOF; i++)
+    s[i] = c;
+  s[i] = 0; 
+  return i;
+}
