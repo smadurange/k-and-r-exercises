@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,7 +17,7 @@ int main(int argc, char *argv[]) {
   char op, s[MAXTEXTLEN], t[MAXTEXTLEN];
 
   if ((argc != 2 && argc != 3) || (op = argv[1][1] != 'e' && op != 'd')) {
-    printf("Usage: -e 5,3...\n");
+    printf("usage: -e 5,3...\n");
     return 1;
   }
 
@@ -27,7 +28,7 @@ int main(int argc, char *argv[]) {
     colc = 1;
   }
 
-  printf("Enter text to %s and press CTRL+D\n", op == 'e' ? "entab" : "detab");
+  printf("enter text to %s and press CTRL+D\n", op == 'e' ? "entab" : "detab");
   gettext(s, MAXTEXTLEN);
 
   switch (op) {
@@ -38,7 +39,7 @@ int main(int argc, char *argv[]) {
     detab(s, t, colv, colc);
     break;
   default:
-    printf("Error: invalid operation.\n");
+    printf("error: invalid operation.\n");
     return 1;
   }
 
@@ -46,11 +47,36 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+int gettabs(char *s, int *t) {
+  int i, j, k;
+  char col[MAXDIGLEN];
+
+  for (i = 0, j = 0, k = 0; j < MAXTABLIST && k < MAXDIGLEN && s[i] != 0; i++) {
+    if (s[i] == ' ' || s[i] == ',') {
+      t[j++] = atoi(col);
+      col[0] = 0;
+      k = 0;
+    } else if (isdigit(s[i]))
+      col[k++] = s[i];
+    else {
+      printf("error: invalid char in tablist\n");
+      return 0;
+    }
+  }
+
+  if (k >= MAXDIGLEN) {
+    printf("error: column number too large\n");
+    return 0;
+  }
+
+  return j;
+}
+
 int gettext(char *s, int max) {
   int i, c;
 
   for (i = 0; i < max && (c = getchar()) != EOF; i++)
     s[i] = c;
-  s[i] = 0; 
+  s[i] = 0;
   return i;
 }
