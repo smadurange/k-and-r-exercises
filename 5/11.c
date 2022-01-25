@@ -53,8 +53,8 @@ int gettabs(char *s, int *t) {
 
   for (i = 0, j = 0, k = 0; j < MAXTABLIST && k < MAXDIGLEN && s[i] != 0; i++) {
     if (s[i] == ' ' || s[i] == ',') {
+      col[k] = 0;
       t[j++] = atoi(col);
-      col[0] = 0;
       k = 0;
     } else if (isdigit(s[i]))
       col[k++] = s[i];
