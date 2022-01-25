@@ -21,9 +21,12 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  if (argc == 3)
-    colc = gettabs(argv[2], colv);
-  else {
+  if (argc == 3) {
+    if (!(colc = gettabs(argv[2], colv))) {
+      printf("error: invalid tablist\n");
+      return 1;
+    }
+  } else {
     colv[0] = TABSIZE;
     colc = 1;
   }
