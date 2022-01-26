@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  printf("%s:\n%s\n", op == 'e' ? "entabbed" : "detabbed", t);
+  printf("%s text:\n%s\n", op == 'e' ? "entabbed" : "detabbed", t);
   return 0;
 }
 
