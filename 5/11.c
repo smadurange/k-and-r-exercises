@@ -7,8 +7,8 @@
 #define TABSIZE 8
 #define MAXTEXTLEN 500
 
-int gettabs(char *s, int *t);
 int getinput(char *s, int max);
+int gettablist(char *s, int *t);
 void entab(char *s, char *t, int *tablist, int tablistc);
 void detab(char *s, char *t, int *tablist, int tablistc);
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
   }
 
   if (argc == 3) {
-    if (!(colc = gettabs(argv[2], colv))) {
+    if (!(colc = gettablist(argv[2], colv))) {
       printf("error: invalid tablist\n");
       return 1;
     }
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int gettabs(char *s, int *t) {
+int gettablist(char *s, int *t) {
   int i, j, k;
   char col[MAXDIGLEN];
 
