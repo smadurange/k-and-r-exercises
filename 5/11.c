@@ -22,7 +22,7 @@ void detab(char *s, char *t, int *tablist, int tablistc);
 
 int main(int argc, char *argv[]) {
   int colv[MAXTABLIST], colc;
-  char op, s[MAXTEXT], t[MAXTEXT];
+  char op, s[MAXTEXT + 1], t[MAXTEXT + 1];
 
   if ((argc != 2 && argc != 3) || ((op = argv[1][1]) != 'e' && op != 'd')) {
     printf("Usage: -e 5,3...\n");
@@ -87,4 +87,20 @@ int gettablist(char *s, int *t) {
   }
 
   return j;
+}
+
+void entab(char *s, char *t, int *tablist, int tablistc) {
+  int i, j, k;
+
+  if (tablistc == 1) {
+    for (i = 0, j = 0; i < MAXTEXT && j < MAXTEXT && (t[j] = s[i]) != 0; i++) {
+      if (s[i] == '\t') {
+        for (k = 0; k < TABSIZE && j < MAXTEXT - 1; k++, j++)
+          t[j] = ' ';
+      } else
+        j++;
+    }
+  }
+
+  t[j] = 0;
 }
