@@ -8,7 +8,7 @@
 #define MAXTEXTLEN 500
 
 int gettabs(char *s, int *t);
-int gettext(char *s, int max);
+int getinput(char *s, int max);
 void entab(char *s, char *t, int *tablist, int tablistc);
 void detab(char *s, char *t, int *tablist, int tablistc);
 
@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
   int colv[MAXTABLIST], colc;
   char op, s[MAXTEXTLEN], t[MAXTEXTLEN];
 
-  if ((argc != 2 && argc != 3) || (op = argv[1][1] != 'e' && op != 'd')) {
+  if ((argc != 2 && argc != 3) || ((op = argv[1][1]) != 'e' && op != 'd')) {
     printf("usage: -e 5,3...\n");
     return 1;
   }
@@ -32,14 +32,14 @@ int main(int argc, char *argv[]) {
   }
 
   printf("enter text to %s and press CTRL+D\n", op == 'e' ? "entab" : "detab");
-  gettext(s, MAXTEXTLEN);
+  getinput(s, MAXTEXTLEN);
 
   switch (op) {
   case 'e':
-    entab(s, t, colv, colc);
+    // entab(s, t, colv, colc);
     break;
   case 'd':
-    detab(s, t, colv, colc);
+    // detab(s, t, colv, colc);
     break;
   default:
     printf("error: invalid operation.\n");
@@ -54,28 +54,31 @@ int gettabs(char *s, int *t) {
   int i, j, k;
   char col[MAXDIGLEN];
 
-  for (i = 0, j = 0, k = 0; j < MAXTABLIST && k < MAXDIGLEN && s[i] != 0; i++) {
-    if (s[i] == ' ' || s[i] == ',') {
+  for (i = 0, j = 0, k = 0; j < MAXTABLIST; i++) {
+    if (k >= MAXDIGLEN) {
+      printf("error: tablist entry too large\n");
+      return 0;
+    }
+
+    if (s[i] == ' ' || s[i] == ',' || s[i] == 0) {
       col[k] = 0;
       t[j++] = atoi(col);
-      k = 0;
+      if (s[i] == 0)
+        break;
+      else
+        k = 0;
     } else if (isdigit(s[i]))
       col[k++] = s[i];
     else {
-      printf("error: invalid char in tablist\n");
+      printf("error: invalid char %c in tablist\n", s[i]);
       return 0;
     }
-  }
-
-  if (k >= MAXDIGLEN) {
-    printf("error: column number too large\n");
-    return 0;
   }
 
   return j;
 }
 
-int gettext(char *s, int max) {
+int getinput(char *s, int max) {
   int i, c;
 
   for (i = 0; i < max && (c = getchar()) != EOF; i++)
