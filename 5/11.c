@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
 
   switch (op) {
   case 'e':
-    // entab(s, t, colv, colc);
+    entab(s, t, colv, colc);
     break;
   case 'd':
     // detab(s, t, colv, colc);
