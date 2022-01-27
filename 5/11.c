@@ -110,11 +110,12 @@ void entab(char *s, char *t, int *tablist, int tablistc) {
         else
           col++;
       } else {
-        for (; col <= tablist[j++] && k < MAXTEXT; col++)
+        for (; col <= tablist[j] && k < MAXTEXT; col++)
           t[k++] = ' ';
+        j++;
       }
     }
-  }
 
-  t[j] = 0;
+    t[k] = 0;
+  }
 }
