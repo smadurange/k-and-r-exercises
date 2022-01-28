@@ -97,7 +97,7 @@ void entab(char *s, char *t, int *tablist, int tablistc) {
       if (s[i] != ' ')
         t[j++] = s[i];
       else {
-        for (k = i; k < i + TABSIZE && s[k] != 0; k++)
+        for (k = i; k < i + TABSIZE && s[k] == ' '; k++)
           ;
         if (k == i + TABSIZE - 1) {
           t[j++] = '\t';
