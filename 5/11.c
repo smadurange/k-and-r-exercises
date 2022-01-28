@@ -109,12 +109,13 @@ void entab(char *s, char *t, int *tablist, int tablistc) {
 
     t[j] = 0;
   } else {
-    for (i = 0, j = 0, k = 0; i < tablistc && s[j] != 0; j++) {
+    for (i = 0, j = 0, k = 0, l = 1; i < tablistc && s[j] != 0; j++) {
       if (s[j] != ' ') {
         t[k++] = s[j];
-        if (s[j] == '\n')
-          l = 0;
-        else
+        if (s[j] == '\n') {
+          l = 1;
+          i = 0;
+        } else
           l++;
       } else {
         for (m = j; m <= tablist[i] && s[m] == ' '; m++)
@@ -122,6 +123,8 @@ void entab(char *s, char *t, int *tablist, int tablistc) {
         if (m == tablist[i]) {
           t[k++] = '\t';
           l = m + 1;
+          for (i += 1; i < tablistc && tablist[i] >= l; i++)
+            ;
         } else {
           t[k++] = s[j];
           l++;
