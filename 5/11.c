@@ -90,7 +90,7 @@ int gettablist(char *s, int *t) {
 }
 
 void entab(char *s, char *t, int *tablist, int tablistc) {
-  int i, j, k;
+  int i, j, k, l, m;
 
   if (tablistc < 2) {
     for (i = 0, j = 0; s[i] != 0 && j < MAXTEXT; i++) {
@@ -109,7 +109,27 @@ void entab(char *s, char *t, int *tablist, int tablistc) {
 
     t[j] = 0;
   } else {
-    // todo
+    for (i = 0, j = 0, k = 0; i < tablistc && s[j] != 0; j++) {
+      if (s[j] != ' ') {
+        t[k++] = s[j];
+        if (s[j] == '\n')
+          l = 0;
+        else
+          l++;
+      } else {
+        for (m = j; m <= tablist[i] && s[m] == ' '; m++)
+          ;
+        if (m == tablist[i]) {
+          t[k++] = '\t';
+          l = m + 1;
+        } else {
+          t[k++] = s[j];
+          l++;
+        }
+      }
+    }
+
+    t[k] = 0;
   }
 }
 
