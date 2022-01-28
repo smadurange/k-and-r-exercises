@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     entab(s, t, colv, colc);
     break;
   case 'd':
-    // detab(s, t, colv, colc);
+    detab(s, t, colv, colc);
     break;
   default:
     printf("Error: invalid operation.\n");
