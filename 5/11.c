@@ -17,7 +17,10 @@
   })
 
 int gettablist(char *s, int *t);
+
+/* Replaces blanks with tabs */
 void entab(char *s, char *t, int *tablist, int tablistc);
+/* Replaces tabs with blanks */
 void detab(char *s, char *t, int *tablist, int tablistc);
 
 int main(int argc, char *argv[]) {
