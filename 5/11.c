@@ -18,10 +18,10 @@
 
 int gettablist(char *s, int *t);
 
-/* Replaces blanks with tabs */
-void entab(char *s, char *t, int *tablist, int tablistc);
 /* Replaces tabs with blanks */
 void detab(char *s, char *t, int *tablist, int tablistc);
+/* Replaces blanks with tabs */
+void entab(char *s, char *t, int *tablist, int tablistc);
 
 int main(int argc, char *argv[]) {
   int colv[MAXTABLIST], colc;
@@ -92,6 +92,38 @@ int gettablist(char *s, int *t) {
   return j;
 }
 
+void detab(char *s, char *t, int *tablist, int tablistc) {
+  int i, j, k, col;
+
+  if (tablistc < 2) {
+    col = tablistc == 0 ? TABSIZE : tablist[0];
+    for (i = 0, j = 0; j < MAXTEXT && (t[j] = s[i]) != 0; i++) {
+      if (s[i] == '\t') {
+        for (k = 0; k < col && j < MAXTEXT; k++, j++)
+          t[j] = ' ';
+      } else
+        j++;
+    }
+  } else {
+    col = 1;
+    for (i = 0, j = 0, k = 0; k < MAXTEXT && s[i] != 0 && j <= tablistc; i++) {
+      if (s[i] != '\t') {
+        t[k++] = s[i];
+        if (s[i] == '\n')
+          col = 1;
+        else
+          col++;
+      } else {
+        for (; col <= tablist[j] && k < MAXTEXT; col++)
+          t[k++] = ' ';
+        j++;
+      }
+    }
+
+    t[k] = 0;
+  }
+}
+
 void entab(char *s, char *t, int *tablist, int tablistc) {
   int i, j, k, l, m, n;
 
@@ -133,37 +165,6 @@ void entab(char *s, char *t, int *tablist, int tablistc) {
           t[k++] = s[j];
           l++;
         }
-      }
-    }
-
-    t[k] = 0;
-  }
-}
-
-void detab(char *s, char *t, int *tablist, int tablistc) {
-  int i, j, k, col;
-
-  if (tablistc < 2) {
-    for (i = 0, j = 0; j < MAXTEXT && (t[j] = s[i]) != 0; i++) {
-      if (s[i] == '\t') {
-        for (k = 0; k < TABSIZE && j < MAXTEXT; k++, j++)
-          t[j] = ' ';
-      } else
-        j++;
-    }
-  } else {
-    col = 1;
-    for (i = 0, j = 0, k = 0; k < MAXTEXT && s[i] != 0 && j <= tablistc; i++) {
-      if (s[i] != '\t') {
-        t[k++] = s[i];
-        if (s[i] == '\n')
-          col = 1;
-        else
-          col++;
-      } else {
-        for (; col <= tablist[j] && k < MAXTEXT; col++)
-          t[k++] = ' ';
-        j++;
       }
     }
 
